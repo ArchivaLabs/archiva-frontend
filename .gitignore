@@ -34,3 +34,8 @@ dist-ssr
 .env.test.local
 .env.example
 
+
+CLAUDE.md
+CLAUDE-V1.md
+plan.md
+
