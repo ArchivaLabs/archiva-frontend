@@ -1,6 +1,5 @@
+import type { TagVariant } from "@/lib/types"
 import { cn } from "@/lib/utils"
-
-export type TagVariant = "urgent" | "primary" | "neutral" | "secondary" | "tertiary"
 
 const variantStyles: Record<TagVariant, string> = {
   urgent: "bg-destructive-container text-on-destructive-container",
@@ -16,13 +15,17 @@ interface TagBadgeProps {
   className?: string
 }
 
-export default function TagBadge({ label, variant = "primary", className }: TagBadgeProps) {
+export default function TagBadge({
+  label,
+  variant = "primary",
+  className,
+}: TagBadgeProps) {
   return (
     <span
       className={cn(
         "inline-flex items-center rounded px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase",
         variantStyles[variant],
-        className,
+        className
       )}
     >
       {label}
