@@ -1,5 +1,5 @@
 import { FileSpreadsheet, FileText } from "lucide-react"
-import type { Meeting, MeetingDocument } from "./types"
+import type { Meeting, MeetingDocument, SearchResult } from "./types"
 
 export const DOCUMENTS: MeetingDocument[] = [
   {
@@ -204,3 +204,141 @@ export const FILE_ICON: Record<MeetingDocument["type"], typeof FileText> = {
   XLSX: FileSpreadsheet,
   TXT: FileText,
 }
+
+export const SEARCH_PAGE_SIZE = 8
+
+export const SEARCH_FILTER_TAGS = [
+  "Senate",
+  "Budget",
+  "Proposal",
+  "Academic",
+  "Finance",
+  "Research",
+  "Archive",
+  "Admin",
+  "Governance",
+  "Minutes",
+]
+
+export const SEARCH_FILTER_DEPARTMENTS = [
+  "All Departments",
+  "Faculty of Science",
+  "Administration",
+  "External Relations",
+  "Financial Archives",
+  "Senate Finance Committee",
+  "Academic Affairs",
+]
+
+export const SEARCH_MOCK_RESULTS: SearchResult[] = [
+  {
+    id: "sr-1",
+    type: "document",
+    title: "FY2024 Senate Budget Proposal - Final Draft",
+    snippet:
+      "The Senate Budget Proposal for the fiscal year 2024 outlines a 15% increase in research grants. This proposal focuses on infrastructure upgrades in the Faculty of Science and new laboratory equipment allocations.",
+    date: "Dec 12, 2023",
+    source: "Senate Finance Committee",
+    tags: ["Senate2024", "Budget", "Finance"],
+    fileType: "PDF",
+  },
+  {
+    id: "sr-2",
+    type: "meeting",
+    title: "Minutes: Q4 Senate Meeting",
+    snippet:
+      "Item 4.2: Presentation of the preliminary Budget Proposal by Dr. Aris. The Senate members voted unanimously to proceed to the next phase of the approval process.",
+    date: "Nov 05, 2023",
+    source: "Administrative Board",
+    tags: ["Minutes", "Senate"],
+    meetingId: "1",
+  },
+  {
+    id: "sr-3",
+    type: "document",
+    title: "Legacy Archive: Budget Reports 2018–2024",
+    snippet:
+      "This collection includes the historical proposals submitted to the Senate. Note the correlation between the 2024 budget and the preceding four years of financial data.",
+    date: "Nov 28, 2023",
+    source: "Financial Archives",
+    tags: ["Archive", "Finance"],
+    fileType: "DOCX",
+  },
+  {
+    id: "sr-4",
+    type: "document",
+    title: "Doctoral Program Accreditation Review 2024",
+    snippet:
+      "Annual review of doctoral program accreditation standards across the Faculty of Science. Recommendations for the 2025 cycle are included in Appendix B.",
+    date: "Jan 10, 2024",
+    source: "Academic Affairs",
+    tags: ["Academic", "Governance"],
+    fileType: "PDF",
+  },
+  {
+    id: "sr-5",
+    type: "meeting",
+    title: "Faculty Board Emergency Session — Grant Allocation",
+    snippet:
+      "Emergency session called by the Dean to address the shortfall in research grant distribution. Members present approved a temporary reallocation from the infrastructure reserve.",
+    date: "Nov 10, 2023",
+    source: "Faculty of Science",
+    tags: ["Research", "Finance", "Senate"],
+    meetingId: "6",
+  },
+  {
+    id: "sr-6",
+    type: "document",
+    title: "Research Grants Framework Final",
+    snippet:
+      "Final framework document governing the allocation of research grants for the 2025–2026 academic cycle. Supersedes the 2022 framework in all respects.",
+    date: "Mar 12, 2025",
+    source: "Senate Finance Committee",
+    tags: ["Research", "Governance"],
+    fileType: "PDF",
+  },
+  {
+    id: "sr-7",
+    type: "document",
+    title: "Staff Disciplinary Procedures Manual (Rev. 4)",
+    snippet:
+      "Revised procedures for staff disciplinary hearings, including new provisions for remote hearings introduced after 2022. Approved by Administration on March 1, 2024.",
+    date: "Mar 01, 2024",
+    source: "Administration",
+    tags: ["Admin", "Governance"],
+    fileType: "DOCX",
+  },
+  {
+    id: "sr-8",
+    type: "meeting",
+    title: "Academic Affairs Monthly — October 2023",
+    snippet:
+      "Agenda included review of the semester timetable, proposed curriculum changes for the Engineering faculty, and an update on the student council elections.",
+    date: "Oct 28, 2023",
+    source: "Academic Affairs",
+    tags: ["Academic", "Minutes"],
+    meetingId: "3",
+  },
+  {
+    id: "sr-9",
+    type: "document",
+    title: "Budget Allocation Sheet 2025",
+    snippet:
+      "Detailed allocation of the 2025 institutional budget across all faculties and departments. Includes comparative figures from 2023 and 2024 for reference.",
+    date: "Mar 13, 2025",
+    source: "Financial Archives",
+    tags: ["Budget", "Finance"],
+    fileType: "XLSX",
+  },
+  {
+    id: "sr-10",
+    type: "meeting",
+    title: "External Relations Strategy Session",
+    snippet:
+      "Session focused on international partnership opportunities. The committee reviewed proposals from three partner universities and approved two MoUs for the 2024–2025 academic year.",
+    date: "Oct 15, 2023",
+    source: "External Relations",
+    tags: ["Governance", "Minutes"],
+    meetingId: "4",
+  },
+]

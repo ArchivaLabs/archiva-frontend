@@ -38,4 +38,7 @@ dist-ssr
 CLAUDE.md
 CLAUDE-V1.md
 plan.md
+tasks/
+.playwright-mcp/
+.claude/
 
