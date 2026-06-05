@@ -1,6 +1,5 @@
 import { Link, useLocation } from "react-router-dom"
 import {
-  Archive,
   Plus,
   LayoutDashboard,
   CalendarDays,
@@ -24,13 +23,16 @@ export default function Sidebar() {
   const { pathname } = useLocation()
 
   return (
-    <aside className="flex w-sidebar-width shrink-0 flex-col px-5 border-r border-border bg-nav-sidebar">
+    <aside className="flex w-sidebar-width shrink-0 flex-col border-r border-border bg-nav-sidebar px-5">
       <div className="py-5">
         <Logo />
       </div>
 
       <div className="pb-8">
-        <Button className="w-full gap-2 bg-primary text-white hover:bg-primary/90 py-5" size="sm">
+        <Button
+          className="w-full gap-2 bg-primary py-5 text-white hover:bg-primary/90"
+          size="sm"
+        >
           <Plus className="size-4" />
           New Entry
         </Button>
@@ -47,7 +49,7 @@ export default function Sidebar() {
                 "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
                 active
                   ? "border-l-[3px] border-primary bg-primary/8 pl-[9px] text-primary dark:bg-white/10 dark:text-white"
-                  : "text-muted-foreground hover:bg-surface-container hover:text-foreground dark:text-white/60 dark:hover:bg-white/5 dark:hover:text-white/90",
+                  : "text-muted-foreground hover:bg-surface-container hover:text-foreground dark:text-white/60 dark:hover:bg-white/5 dark:hover:text-white/90"
               )}
             >
               <Icon className="size-4 shrink-0" />
