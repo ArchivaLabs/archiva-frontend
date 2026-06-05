@@ -11,6 +11,7 @@ import {
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import Logo from "../shared/Logo"
 
 const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
@@ -24,20 +25,8 @@ export default function Sidebar() {
 
   return (
     <aside className="flex w-sidebar-width shrink-0 flex-col px-5 border-r border-border bg-nav-sidebar">
-      <div className="pb-4 pt-5">
-        <div className="flex items-center gap-2.5">
-          <div className="flex size-9 items-center justify-center rounded-xl bg-primary">
-            <Archive className="size-5 text-white" />
-          </div>
-          <div>
-            <p className="text-sm font-bold leading-tight text-foreground dark:text-white">
-              Archiva
-            </p>
-            <p className="text-xs text-muted-foreground dark:text-white/50">
-              University Records
-            </p>
-          </div>
-        </div>
+      <div className="py-5">
+        <Logo />
       </div>
 
       <div className="pb-8">

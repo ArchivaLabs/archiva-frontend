@@ -24,7 +24,7 @@ export default function LoginPage() {
         ))}
 
         {/* Logo */}
-        <Logo />
+        <Logo variant="dark" />
 
         {/* Main content — vertically centered */}
         <div className="relative z-10 flex flex-1 flex-col justify-center">

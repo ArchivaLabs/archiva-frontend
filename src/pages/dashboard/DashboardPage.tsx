@@ -99,7 +99,7 @@ const quickActions = [
 
 export default function DashboardPage() {
   return (
-    <div className="flex flex-col gap-6 p-6">
+    <section className="flex flex-col gap-6 p-6">
       {/* Breadcrumb */}
       <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
         <span>Faculty of Engineering</span>
@@ -316,6 +316,6 @@ export default function DashboardPage() {
           </button>
         ))}
       </div>
-    </div>
+    </section>
   )
 }
