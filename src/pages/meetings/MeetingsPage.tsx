@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { Link } from "react-router-dom"
 import {
   ChevronRight,
@@ -12,88 +11,25 @@ import {
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import MeetingCard from "@/components/meetings/MeetingCard"
-import type { Meeting } from "@/lib/types"
+import { useMeetingStore } from "@/store/meetingStore"
+import { MEETINGS } from "@/lib/constants"
 
-
-
-const MEETINGS: Meeting[] = [
-  {
-    id: "1",
-    title: "Faculty Board Review",
-    date: "Oct 24, 2023",
-    time: "10:00 AM",
-    tags: [
-      { label: "Urgent", variant: "urgent" },
-      { label: "Senate", variant: "neutral" },
-    ],
-    creator: { name: "Dr. Yusuf", avatar: "https://i.pravatar.cc/24?img=14" },
-    docCount: 12,
-  },
-  {
-    id: "2",
-    title: "Budget Allocation Q4",
-    date: "Oct 26, 2023",
-    time: "02:30 PM",
-    tags: [{ label: "Finance", variant: "secondary" }],
-    creator: { name: "Prof. Chen", avatar: "https://i.pravatar.cc/24?img=47" },
-    docCount: 5,
-  },
-  {
-    id: "3",
-    title: "Academic Affairs Monthly",
-    date: "Oct 28, 2023",
-    time: "09:00 AM",
-    tags: [
-      { label: "Senate", variant: "neutral" },
-      { label: "Recurring", variant: "primary" },
-    ],
-    creator: { name: "Dr. Aris", avatar: "https://i.pravatar.cc/24?img=53" },
-    docCount: 28,
-  },
-  {
-    id: "4",
-    title: "Grant Proposal Symposium",
-    date: "Nov 02, 2023",
-    time: "11:30 AM",
-    tags: [{ label: "Research", variant: "tertiary" }],
-    creator: { name: "Prof. Sarah", avatar: "https://i.pravatar.cc/24?img=32" },
-    docCount: 8,
-  },
-  {
-    id: "5",
-    title: "Staff Discipline Committee",
-    date: "Nov 05, 2023",
-    time: "03:00 PM",
-    tags: [{ label: "Admin", variant: "neutral" }],
-    creator: { name: "Mr. Thorne", avatar: "https://i.pravatar.cc/24?img=15" },
-    docCount: 3,
-  },
-  {
-    id: "6",
-    title: "Emergency Grants Review",
-    date: "Nov 10, 2023",
-    time: "08:30 AM",
-    tags: [
-      { label: "Urgent", variant: "urgent" },
-      { label: "Finance", variant: "secondary" },
-    ],
-    creator: { name: "Dr. Lee", avatar: "https://i.pravatar.cc/24?img=20" },
-    docCount: 42,
-  },
-]
 
 export default function MeetingsPage() {
-  const [view, setView] = useState<"grid" | "list">("grid")
-  const [activeFilters, setActiveFilters] = useState(["Urgent"])
+  const { view, filters, setView, setDateRange, removeTag } = useMeetingStore()
+  const { activeTags, dateRange } = filters
 
   return (
-    <section className="flex flex-col min-h-full">
+    <section className="flex min-h-full flex-col">
       {/* Page header */}
       <div className="px-6 pt-8 pb-4">
         <div className="mb-8 flex items-end justify-between">
           <div>
             <nav className="mb-2 flex items-center gap-1.5 text-xs text-muted-foreground">
-              <Link to="/dashboard" className="hover:text-primary transition-colors">
+              <Link
+                to="/dashboard"
+                className="transition-colors hover:text-primary"
+              >
                 Dashboard
               </Link>
               <ChevronRight className="size-3" />
@@ -114,7 +50,11 @@ export default function MeetingsPage() {
           {/* Date filter */}
           <div className="flex items-center gap-2">
             <CalendarDays className="size-5 text-muted-foreground" />
-            <select className="rounded-lg border border-border bg-background px-3 py-1.5 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-ring">
+            <select
+              value={dateRange}
+              onChange={(e) => setDateRange(e.target.value)}
+              className="rounded-lg border border-border bg-background px-3 py-1.5 text-sm text-foreground focus:ring-1 focus:ring-ring focus:outline-none"
+            >
               <option>This Week</option>
               <option>Last 30 Days</option>
               <option>Academic Quarter</option>
@@ -126,21 +66,21 @@ export default function MeetingsPage() {
           <div className="flex items-center gap-2">
             <Filter className="size-4 text-muted-foreground" />
             <div className="flex gap-2">
-              {activeFilters.map((f) => (
+              {activeTags.map((f) => (
                 <span
                   key={f}
                   className="flex items-center gap-1 rounded-full bg-primary/15 px-3 py-1 text-[11px] font-semibold text-primary"
                 >
                   {f}
                   <button
-                    onClick={() => setActiveFilters((prev) => prev.filter((x) => x !== f))}
-                    className="hover:opacity-70 transition-opacity"
+                    onClick={() => removeTag(f)}
+                    className="transition-opacity hover:opacity-70"
                   >
                     <X className="size-3" />
                   </button>
                 </span>
               ))}
-              <button className="rounded-full border border-border bg-surface-container-high px-3 py-1 text-[11px] font-semibold text-muted-foreground hover:bg-surface-container-highest transition-colors">
+              <button className="rounded-full border border-border bg-surface-container-high px-3 py-1 text-[11px] font-semibold text-muted-foreground transition-colors hover:bg-surface-container-highest">
                 + Add Tag
               </button>
             </div>
@@ -154,7 +94,7 @@ export default function MeetingsPage() {
                 "rounded-lg p-2 transition-colors",
                 view === "grid"
                   ? "bg-surface-container-highest text-primary"
-                  : "text-muted-foreground hover:bg-surface-container-high",
+                  : "text-muted-foreground hover:bg-surface-container-high"
               )}
             >
               <LayoutGrid className="size-5" />
@@ -165,7 +105,7 @@ export default function MeetingsPage() {
                 "rounded-lg p-2 transition-colors",
                 view === "list"
                   ? "bg-surface-container-highest text-primary"
-                  : "text-muted-foreground hover:bg-surface-container-high",
+                  : "text-muted-foreground hover:bg-surface-container-high"
               )}
             >
               <List className="size-5" />
@@ -185,4 +125,3 @@ export default function MeetingsPage() {
     </section>
   )
 }
-
