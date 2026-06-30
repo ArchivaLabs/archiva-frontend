@@ -1,66 +1,67 @@
-import { ScrollText, Shield, ArrowRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import Logo from "@/components/shared/Logo"
+import { useState } from "react";
+import { ScrollText, Shield, ArrowRight, Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import AuthLeftPanel from "@/components/layout/AuthLeftPanel";
+import { useMsal } from "@azure/msal-react";
+import { loginRequest } from "@/lib/msalConfig";
+import { toast } from "sonner";
+import MicrosoftRedirectLoader from "@/components/auth/MicrosoftRedirectLoader";
 
 const featureCards = [
   { icon: ScrollText, label: "GOVERNANCE", title: "Senate Records" },
   { icon: Shield, label: "SECURITY", title: "Enterprise SSO" },
-]
-
-const ringDiameters = [200, 330, 460, 590, 720, 850]
+];
 
 export default function LoginPage() {
+  const { instance } = useMsal();
+  const [isRedirecting, setIsRedirecting] = useState(false);
+
+  async function handleMicrosoftLogin() {
+    if (isRedirecting) return;
+    sessionStorage.removeItem("msal.interaction.status");
+    sessionStorage.setItem("archiva.login_pending", "true");
+    setIsRedirecting(true);
+    try {
+      await instance.loginRedirect(loginRequest);
+    } catch (err) {
+      sessionStorage.removeItem("archiva.login_pending");
+      setIsRedirecting(false);
+      console.error("[Login] loginRedirect threw:", err);
+      toast.error("Sign in failed. Please try again.");
+    }
+  }
+
+  if (isRedirecting) return <MicrosoftRedirectLoader />;
+
   return (
     <section className="flex h-screen overflow-hidden">
-      {/* ── Left panel ────────────────────────────────── */}
-      <article className="relative flex w-[60%] flex-col overflow-hidden bg-primary px-14 py-10">
-        {/* Dashed decorative rings — centered */}
-        {ringDiameters.map((d) => (
-          <div
-            key={d}
-            className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-white/20"
-            style={{ width: d, height: d }}
-          />
-        ))}
-
-        {/* Logo */}
-        <Logo variant="dark" />
-
-        {/* Main content — vertically centered */}
-        <div className="relative z-10 flex flex-1 flex-col justify-center">
-          <h1 className="mb-5 max-w-3xl text-[2.6rem] leading-tight font-bold text-white">
-            Your organisation&apos;s meeting memory.
-          </h1>
-          <p className="mb-10 max-w-md text-[0.95rem] leading-relaxed text-white/65">
-            The quiet infrastructure for university administration. Securely
-            manage records, Senate Committee minutes, and institutional
-            knowledge with academic precision and modern speed.
-          </p>
-
-          <div className="grid max-w-xl grid-cols-2 gap-4">
-            {featureCards.map(({ icon: Icon, label, title }) => (
-              <div
-                key={label}
-                className="rounded-lg border border-white/20 bg-white/10 p-4"
-              >
-                <Icon className="mb-3 size-4 text-white/80" />
-                <p className="mb-0.5 text-[10px] font-semibold tracking-wider text-white/50 uppercase">
-                  {label}
-                </p>
-                <p className="text-sm font-semibold text-white">{title}</p>
-              </div>
-            ))}
-          </div>
+      <AuthLeftPanel
+        headline="Your organisation's meeting memory."
+        subtext="The quiet infrastructure for university administration. Securely manage records, Senate Committee minutes, and institutional knowledge with academic precision and modern speed."
+        footer={
+          <>
+            <span className="size-1.5 rounded-full bg-green-400/80" />
+            System Status: Active
+            <span className="text-white/20">•</span>
+            v2.4.0-Academic
+          </>
+        }
+      >
+        <div className="grid max-w-xl grid-cols-2 gap-4">
+          {featureCards.map(({ icon: Icon, label, title }) => (
+            <div
+              key={label}
+              className="rounded-lg border border-white/20 bg-white/10 p-4"
+            >
+              <Icon className="mb-3 size-4 text-white/80" />
+              <p className="mb-0.5 text-[10px] font-semibold tracking-wider text-white/50 uppercase">
+                {label}
+              </p>
+              <p className="text-sm font-semibold text-white">{title}</p>
+            </div>
+          ))}
         </div>
-
-        {/* Footer */}
-        <div className="relative z-10 flex items-center gap-2 text-xs text-white/40">
-          <span className="size-1.5 rounded-full bg-green-400/80" />
-          System Status: Active
-          <span className="text-white/20">•</span>
-          v2.4.0-Academic
-        </div>
-      </article>
+      </AuthLeftPanel>
 
       {/* ── Right panel ───────────────────────────────── */}
       <article className="flex w-[40%] flex-col justify-center gap-4 overflow-y-auto bg-surface-container-low px-10 py-10">
@@ -76,9 +77,15 @@ export default function LoginPage() {
           <Button
             variant="outline"
             className="mb-6 h-12 w-full gap-3 text-sm font-medium"
+            onClick={handleMicrosoftLogin}
+            disabled={isRedirecting}
           >
-            <MicrosoftIcon />
-            Sign in with Microsoft
+            {isRedirecting ? (
+              <Loader2 className="size-4 animate-spin" />
+            ) : (
+              <MicrosoftIcon />
+            )}
+            {isRedirecting ? "Signing in…" : "Sign in with Microsoft"}
           </Button>
 
           <div className="mb-5 flex items-center gap-3">
@@ -140,7 +147,7 @@ export default function LoginPage() {
         </div>
       </article>
     </section>
-  )
+  );
 }
 
 function MicrosoftIcon() {
@@ -151,5 +158,5 @@ function MicrosoftIcon() {
       <rect x="0" y="9.5" width="8.5" height="8.5" fill="#00a4ef" />
       <rect x="9.5" y="9.5" width="8.5" height="8.5" fill="#ffb900" />
     </svg>
-  )
+  );
 }

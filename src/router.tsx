@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom"
 
 import AppShell from "@/components/layout/AppShell"
+import AuthRedirectHandler from "@/components/auth/AuthRedirectHandler"
 import LandingPage from "@/pages/landing/LandingPage"
 import LoginPage from "@/pages/auth/LoginPage"
 import DashboardPage from "@/pages/dashboard/DashboardPage"
@@ -9,54 +10,66 @@ import MeetingDetailsPage from "@/pages/meetings/MeetingDetailsPage"
 import DocumentPreviewPage from "@/pages/documents/DocumentPreviewPage"
 import SearchPage from "@/pages/search/SearchPage"
 import UsersPage from "@/pages/users/UsersPage"
+import OnboardingPage from "@/pages/onboarding/OnboardingPage"
 import NotFoundPage from "@/pages/not-found/NotFoundPage"
 
 const router = createBrowserRouter([
-  // Public routes
   {
-    path: "/",
-    element: <LandingPage />,
-  },
-  {
-    path: "/login",
-    element: <LoginPage />,
-  },
-
-  // Protected routes — share the AppShell layout (sidebar + topbar)
-  {
-    element: <AppShell />,
+    // Root layout: processes the MSAL redirect response on every page load
+    // and fires syncUser when LOGIN_SUCCESS is detected.
+    element: <AuthRedirectHandler />,
     children: [
+      // Public routes
       {
-        path: "/dashboard",
-        element: <DashboardPage />,
+        path: "/",
+        element: <LandingPage />,
       },
       {
-        path: "/meetings",
-        element: <MeetingsPage />,
+        path: "/login",
+        element: <LoginPage />,
       },
       {
-        path: "/meetings/:id",
-        element: <MeetingDetailsPage />,
+        path: "/onboarding",
+        element: <OnboardingPage />,
       },
+
+      // Protected routes — share the AppShell layout (sidebar + topbar)
       {
-        path: "/documents/:id",
-        element: <DocumentPreviewPage />,
+        element: <AppShell />,
+        children: [
+          {
+            path: "/dashboard",
+            element: <DashboardPage />,
+          },
+          {
+            path: "/meetings",
+            element: <MeetingsPage />,
+          },
+          {
+            path: "/meetings/:id",
+            element: <MeetingDetailsPage />,
+          },
+          {
+            path: "/documents/:id",
+            element: <DocumentPreviewPage />,
+          },
+          {
+            path: "/search",
+            element: <SearchPage />,
+          },
+          {
+            path: "/users",
+            element: <UsersPage />,
+          },
+        ],
       },
+
+      // Fallback
       {
-        path: "/search",
-        element: <SearchPage />,
-      },
-      {
-        path: "/users",
-        element: <UsersPage />,
+        path: "*",
+        element: <NotFoundPage />,
       },
     ],
-  },
-
-  // Fallback
-  {
-    path: "*",
-    element: <NotFoundPage />,
   },
 ])
 
