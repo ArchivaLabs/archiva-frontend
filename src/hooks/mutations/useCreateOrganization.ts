@@ -11,7 +11,12 @@ export function useCreateOrganization() {
   return useMutation({
     mutationFn: authService.createOrganization,
     onSuccess: (data) => {
-      setOrganization(data.organizationId, data.role);
+      setOrganization({
+        organizationId: data.organizationId,
+        role: data.role,
+        organizationName: data.organizationName,
+        organizationUrl: data.organizationUrl,
+      });
       navigate("/dashboard", { replace: true });
     },
     onError: () => {

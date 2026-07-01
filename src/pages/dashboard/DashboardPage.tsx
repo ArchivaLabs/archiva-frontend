@@ -17,6 +17,7 @@ import {
   FlaskConical,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useAuthStore } from "@/store/authStore"
 
 const stats = [
   {
@@ -98,6 +99,8 @@ const quickActions = [
 ]
 
 export default function DashboardPage() {
+  const {displayName} = useAuthStore();
+
   return (
     <section className="flex flex-col gap-6 p-6">
       {/* Breadcrumb */}
@@ -110,7 +113,7 @@ export default function DashboardPage() {
       {/* Greeting */}
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-foreground">
-          Good morning, Dr. Yusuf
+          Welcome, {displayName}
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
           Here is a summary of the university records and upcoming governance
@@ -121,7 +124,7 @@ export default function DashboardPage() {
       {/* Stat Cards */}
       <div className="grid grid-cols-3 gap-4">
         {stats.map((stat) => {
-          const Icon = stat.icon
+          const Icon = stat.icon  
           return (
             <div
               key={stat.label}

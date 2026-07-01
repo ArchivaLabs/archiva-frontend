@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom"
 
 import AppShell from "@/components/layout/AppShell"
 import AuthRedirectHandler from "@/components/auth/AuthRedirectHandler"
+import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import LandingPage from "@/pages/landing/LandingPage"
 import LoginPage from "@/pages/auth/LoginPage"
 import DashboardPage from "@/pages/dashboard/DashboardPage"
@@ -33,33 +34,39 @@ const router = createBrowserRouter([
         element: <OnboardingPage />,
       },
 
-      // Protected routes — share the AppShell layout (sidebar + topbar)
+      // Protected routes — ProtectedRoute guards auth + onboarding redirect,
+      // AppShell provides the sidebar + topbar layout.
       {
-        element: <AppShell />,
+        element: <ProtectedRoute />,
         children: [
           {
-            path: "/dashboard",
-            element: <DashboardPage />,
-          },
-          {
-            path: "/meetings",
-            element: <MeetingsPage />,
-          },
-          {
-            path: "/meetings/:id",
-            element: <MeetingDetailsPage />,
-          },
-          {
-            path: "/documents/:id",
-            element: <DocumentPreviewPage />,
-          },
-          {
-            path: "/search",
-            element: <SearchPage />,
-          },
-          {
-            path: "/users",
-            element: <UsersPage />,
+            element: <AppShell />,
+            children: [
+              {
+                path: "/dashboard",
+                element: <DashboardPage />,
+              },
+              {
+                path: "/meetings",
+                element: <MeetingsPage />,
+              },
+              {
+                path: "/meetings/:id",
+                element: <MeetingDetailsPage />,
+              },
+              {
+                path: "/documents/:id",
+                element: <DocumentPreviewPage />,
+              },
+              {
+                path: "/search",
+                element: <SearchPage />,
+              },
+              {
+                path: "/users",
+                element: <UsersPage />,
+              },
+            ],
           },
         ],
       },

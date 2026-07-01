@@ -12,6 +12,7 @@ export const authService = {
       "/api/auth/sync",
       payload
     );
+    console.log(data);
     return data;
   },
   async createOrganization(

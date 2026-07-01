@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import MicrosoftRedirectLoader from "@/components/auth/MicrosoftRedirectLoader";
 import { useMsal } from "@azure/msal-react";
-import { EventType, InteractionType, BrowserAuthError } from "@azure/msal-browser";
+import {
+  EventType,
+  InteractionType,
+  BrowserAuthError,
+} from "@azure/msal-browser";
 import type { AuthenticationResult } from "@azure/msal-browser";
 import { useSyncUser } from "@/hooks/mutations/useSyncUser";
 import { toast } from "sonner";
@@ -26,10 +30,11 @@ export default function AuthRedirectHandler() {
       ) {
         sessionStorage.removeItem("archiva.login_pending");
         setIsProcessingAuth(false);
-        const { account, idTokenClaims } = event.payload as AuthenticationResult;
+        const { account, idTokenClaims } =
+          event.payload as AuthenticationResult;
         syncUser.mutate({
           userId: account.localAccountId,
-          name: account.name ?? "",
+          displayName: account.name ?? "",
           email:
             (idTokenClaims as Record<string, string> | undefined)
               ?.preferred_username ??
@@ -57,7 +62,8 @@ export default function AuthRedirectHandler() {
     };
   }, [instance]);
 
-  if (isProcessingAuth || syncUser.isPending) return <MicrosoftRedirectLoader />;
+  if (isProcessingAuth || syncUser.isPending)
+    return <MicrosoftRedirectLoader />;
 
   return <Outlet />;
 }

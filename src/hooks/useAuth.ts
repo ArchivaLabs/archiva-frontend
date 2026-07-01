@@ -6,7 +6,7 @@ export function useAuth() {
   const { instance, accounts } = useMsal()
   const { userId, organizationId, role, status, clearAuth } = useAuthStore();
 
-  const isAuthenticated = accounts.length > 0 && !!userId
+  const isAuthenticated = !!userId
 
   async function login() {
     await instance.loginPopup(loginRequest);

@@ -62,7 +62,7 @@ export type UserRole = "Admin" | "User";
 
 export interface SyncUserPayload {
   userId: string;
-  name: string;
+  displayName: string;
   email: string;
   avatarUrl: string | null;
 }
@@ -72,6 +72,11 @@ export interface SyncUserResponse {
   organizationId: number | null;
   role: UserRole | null;
   userId: string;
+  displayName: string | null;
+  email: string | null;
+  avatarUrl: string | null;
+  organizationName: string | null;
+  organizationUrl: string | null;
 }
 
 export interface CreateOrganizationPayload {
@@ -83,6 +88,6 @@ export interface CreateOrganizationResponse {
   organizationId: number;
   role: UserRole;
   userId: string;
+  organizationName: string;
+  organizationUrl: string | null;
 }
-
-

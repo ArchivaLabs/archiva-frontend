@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom";
 import {
   Plus,
   LayoutDashboard,
@@ -7,20 +7,22 @@ import {
   Users,
   Settings,
   HelpCircle,
-} from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
-import Logo from "../shared/Logo"
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import Logo from "../shared/Logo";
+import { useAuthStore } from "@/store/authStore";
 
 const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
   { icon: CalendarDays, label: "Meetings", href: "/meetings" },
   { icon: Search, label: "Search", href: "/search" },
   { icon: Users, label: "Users", href: "/users" },
-]
+];
 
 export default function Sidebar() {
-  const { pathname } = useLocation()
+  const { pathname } = useLocation();
+  const { organizationName, displayName } = useAuthStore();
 
   return (
     <aside className="flex w-sidebar-width shrink-0 flex-col border-r border-border bg-nav-sidebar px-5">
@@ -40,7 +42,7 @@ export default function Sidebar() {
 
       <nav className="flex-1 space-y-0.5">
         {navItems.map(({ icon: Icon, label, href }) => {
-          const active = pathname === href || pathname.startsWith(href + "/")
+          const active = pathname === href || pathname.startsWith(href + "/");
           return (
             <Link
               key={href}
@@ -55,7 +57,7 @@ export default function Sidebar() {
               <Icon className="size-4 shrink-0" />
               {label}
             </Link>
-          )
+          );
         })}
       </nav>
 
@@ -83,14 +85,14 @@ export default function Sidebar() {
           </div>
           <div className="min-w-0">
             <p className="truncate text-xs font-medium text-foreground dark:text-white">
-              Dr. Amina Yusuf
+              {displayName}
             </p>
             <p className="truncate text-xs text-muted-foreground dark:text-white/50">
-              University of Abuja
+              {organizationName}
             </p>
           </div>
         </div>
       </div>
     </aside>
-  )
+  );
 }
