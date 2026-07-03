@@ -1,17 +1,17 @@
-import { XCircle, Folder, FileText, Paperclip, UserX } from "lucide-react"
+import { XCircle, Folder, FileText, Paperclip, UserX } from "lucide-react";
 
 const painPoints = [
   "Fragmented records across departments lead to policy inconsistencies.",
   "Lack of traceability for meeting decisions and voting outcomes.",
   "Information silos prevent collaborative research and administrative efficiency.",
-]
+];
 
 function MockCard({
   children,
   className = "",
 }: {
-  children: React.ReactNode
-  className?: string
+  children: React.ReactNode;
+  className?: string;
 }) {
   return (
     <div
@@ -19,17 +19,17 @@ function MockCard({
     >
       {children}
     </div>
-  )
+  );
 }
 
 function SkeletonLine({
   width = "w-full",
   className = "",
 }: {
-  width?: string
-  className?: string
+  width?: string;
+  className?: string;
 }) {
-  return <div className={`h-2 rounded-full ${width} ${className}`} />
+  return <div className={`h-2 rounded-full ${width} ${className}`} />;
 }
 
 export default function ProblemSection() {
@@ -91,5 +91,5 @@ export default function ProblemSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

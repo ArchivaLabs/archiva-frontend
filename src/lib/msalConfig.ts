@@ -2,7 +2,7 @@ import {
   PublicClientApplication,
   LogLevel,
   type Configuration,
-} from "@azure/msal-browser"
+} from "@azure/msal-browser";
 
 const msalConfig: Configuration = {
   auth: {
@@ -18,13 +18,13 @@ const msalConfig: Configuration = {
   system: {
     loggerOptions: {
       loggerCallback: (level, message, containsPii) => {
-        if (containsPii || !import.meta.env.DEV) return
-        if (level === LogLevel.Error) console.error("[MSAL]", message)
-        if (level === LogLevel.Warning) console.warn("[MSAL]", message)
+        if (containsPii || !import.meta.env.DEV) return;
+        if (level === LogLevel.Error) console.error("[MSAL]", message);
+        if (level === LogLevel.Warning) console.warn("[MSAL]", message);
       },
     },
   },
-}
+};
 
 // Scopes sent during login — includes the API scope so consent is granted upfront.
 export const loginRequest = {
@@ -34,11 +34,11 @@ export const loginRequest = {
     "email",
     "api://1274d0e7-b545-4dcc-8c4d-005dee797414/access_as_user",
   ],
-}
+};
 
 // Scopes used for silent token acquisition on every API call.
 export const apiTokenRequest = {
   scopes: ["api://1274d0e7-b545-4dcc-8c4d-005dee797414/access_as_user"],
-}
+};
 
-export const msalInstance = new PublicClientApplication(msalConfig)
+export const msalInstance = new PublicClientApplication(msalConfig);

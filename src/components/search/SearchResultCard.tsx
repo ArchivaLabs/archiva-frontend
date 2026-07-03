@@ -1,13 +1,13 @@
-import { Bookmark, FileSpreadsheet, FileText, Users } from "lucide-react"
-import { useNavigate } from "react-router-dom"
-import FileTypeBadge from "@/components/shared/FileTypeBadge"
-import { cn } from "@/lib/utils"
-import type { SearchResult } from "@/lib/types"
+import { Bookmark, FileSpreadsheet, FileText, Users } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import FileTypeBadge from "@/components/shared/FileTypeBadge";
+import { cn } from "@/lib/utils";
+import type { SearchResult } from "@/lib/types";
 
 function highlightText(text: string, query: string) {
-  if (!query.trim()) return <>{text}</>
-  const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
-  const parts = text.split(new RegExp(`(${escaped})`, "gi"))
+  if (!query.trim()) return <>{text}</>;
+  const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const parts = text.split(new RegExp(`(${escaped})`, "gi"));
   return (
     <>
       {parts.map((part, i) =>
@@ -20,10 +20,10 @@ function highlightText(text: string, query: string) {
           </mark>
         ) : (
           part
-        ),
+        )
       )}
     </>
-  )
+  );
 }
 
 const iconConfig: Record<
@@ -55,25 +55,29 @@ const iconConfig: Record<
     color: "text-primary",
     icon: Users,
   },
-}
+};
 
 interface SearchResultCardProps {
-  result: SearchResult
-  query: string
+  result: SearchResult;
+  query: string;
 }
 
-export default function SearchResultCard({ result, query }: SearchResultCardProps) {
-  const navigate = useNavigate()
-  const iconKey = result.type === "meeting" ? "meeting" : (result.fileType ?? "PDF")
-  const { bg, color, icon: Icon } = iconConfig[iconKey] ?? iconConfig["PDF"]
+export default function SearchResultCard({
+  result,
+  query,
+}: SearchResultCardProps) {
+  const navigate = useNavigate();
+  const iconKey =
+    result.type === "meeting" ? "meeting" : (result.fileType ?? "PDF");
+  const { bg, color, icon: Icon } = iconConfig[iconKey] ?? iconConfig["PDF"];
 
   const handleClick = () => {
     if (result.type === "document") {
-      navigate(`/documents/${result.id}`)
+      navigate(`/documents/${result.id}`);
     } else {
-      navigate(`/meetings/${result.meetingId ?? result.id}`)
+      navigate(`/meetings/${result.meetingId ?? result.id}`);
     }
-  }
+  };
 
   return (
     <div
@@ -86,7 +90,7 @@ export default function SearchResultCard({ result, query }: SearchResultCardProp
             className={cn(
               "flex size-12 shrink-0 items-center justify-center rounded-lg",
               bg,
-              color,
+              color
             )}
           >
             <Icon className="size-6" />
@@ -100,7 +104,7 @@ export default function SearchResultCard({ result, query }: SearchResultCardProp
               {result.type === "document" && result.fileType ? (
                 <FileTypeBadge type={result.fileType} />
               ) : (
-                <span className="inline-flex items-center rounded px-2 py-1 text-[10px] font-bold bg-primary-container/20 text-primary">
+                <span className="inline-flex items-center rounded bg-primary-container/20 px-2 py-1 text-[10px] font-bold text-primary">
                   Meeting
                 </span>
               )}
@@ -139,5 +143,5 @@ export default function SearchResultCard({ result, query }: SearchResultCardProp
         )}
       </div>
     </div>
-  )
+  );
 }

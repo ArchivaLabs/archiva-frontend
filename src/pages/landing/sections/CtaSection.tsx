@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom"
-import { Button } from "@/components/ui/button"
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 export default function CtaSection() {
   return (
@@ -9,21 +9,21 @@ export default function CtaSection() {
           Ready to digitize your institution?
         </h2>
         <p className="mb-8 text-base text-white/80">
-          Join the elite circle of universities future-proofing their institutional
-          knowledge with Archiva.
+          Join the elite circle of universities future-proofing their
+          institutional knowledge with Archiva.
         </p>
 
         <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
           <Button
             variant="secondary"
-            className="h-11 p-6 text-base bg-white text-primary hover:bg-white/90"
+            className="h-11 bg-white p-6 text-base text-primary hover:bg-white/90"
             asChild
           >
             <Link to="/login">Get Started with Microsoft</Link>
           </Button>
           <Button
             variant="outline"
-            className="h-11 p-6 text-base bg-transparent dark:bg-transparent border-white/20 dark:border-white/20 text-white hover:bg-white/10 dark:hover:bg-white/10 hover:text-white"
+            className="h-11 border-white/20 bg-transparent p-6 text-base text-white hover:bg-white/10 hover:text-white dark:border-white/20 dark:bg-transparent dark:hover:bg-white/10"
             asChild
           >
             <Link to="/login">Contact Sales</Link>
@@ -31,5 +31,5 @@ export default function CtaSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

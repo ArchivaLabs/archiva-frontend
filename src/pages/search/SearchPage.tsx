@@ -1,58 +1,61 @@
-import { useEffect, useState } from "react"
-import { useSearchParams } from "react-router-dom"
-import { ChevronLeft, ChevronRight, ChevronDown, Search } from "lucide-react"
-import SearchEmptyState from "@/components/search/SearchEmptyState"
-import SearchFiltersPanel from "@/components/search/SearchFiltersPanel"
-import SearchResultCard from "@/components/search/SearchResultCard"
-import SearchResultsSkeleton from "@/components/search/SearchResultsSkeleton"
-import { Button } from "@/components/ui/button"
-import { SEARCH_PAGE_SIZE } from "@/lib/constants"
-import type { SearchSortBy } from "@/lib/types"
-import { getFilterOptions } from "@/services/search"
-import { useSearchStore } from "@/store/searchStore"
-import { useSearch } from "@/hooks/useSearch"
-import { cn } from "@/lib/utils"
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { ChevronLeft, ChevronRight, ChevronDown, Search } from "lucide-react";
+import SearchEmptyState from "@/components/search/SearchEmptyState";
+import SearchFiltersPanel from "@/components/search/SearchFiltersPanel";
+import SearchResultCard from "@/components/search/SearchResultCard";
+import SearchResultsSkeleton from "@/components/search/SearchResultsSkeleton";
+import { Button } from "@/components/ui/button";
+import { SEARCH_PAGE_SIZE } from "@/lib/constants";
+import type { SearchSortBy } from "@/lib/types";
+import { getFilterOptions } from "@/services/search";
+import { useSearchStore } from "@/store/searchStore";
+import { useSearch } from "@/hooks/useSearch";
+import { cn } from "@/lib/utils";
 
 const SORT_OPTIONS: { value: SearchSortBy; label: string }[] = [
   { value: "relevance", label: "Relevance" },
   { value: "date_desc", label: "Newest first" },
   { value: "date_asc", label: "Oldest first" },
-]
+];
 
 export default function SearchPage() {
-  const [searchParams] = useSearchParams()
-  const [availableTags, setAvailableTags] = useState<string[]>([])
-  const [availableDepartments, setAvailableDepartments] = useState<string[]>([])
-  const [sortOpen, setSortOpen] = useState(false)
+  const [searchParams] = useSearchParams();
+  const [availableTags, setAvailableTags] = useState<string[]>([]);
+  const [availableDepartments, setAvailableDepartments] = useState<string[]>(
+    []
+  );
+  const [sortOpen, setSortOpen] = useState(false);
 
-  const store = useSearchStore()
-  useSearch()
+  const store = useSearchStore();
+  useSearch();
 
   // Sync URL query param → store on first render
   useEffect(() => {
-    const urlQuery = searchParams.get("q") ?? ""
+    const urlQuery = searchParams.get("q") ?? "";
     if (urlQuery && urlQuery !== store.query) {
-      store.setQuery(urlQuery)
+      store.setQuery(urlQuery);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
   // Fetch filter options once
   useEffect(() => {
     getFilterOptions().then(({ tags, departments }) => {
-      setAvailableTags(tags)
-      setAvailableDepartments(departments)
-    })
-  }, [])
+      setAvailableTags(tags);
+      setAvailableDepartments(departments);
+    });
+  }, []);
 
-  const totalPages = Math.ceil(store.total / SEARCH_PAGE_SIZE)
+  const totalPages = Math.ceil(store.total / SEARCH_PAGE_SIZE);
   const hasFilters =
     store.filters.activeTags.length > 0 ||
     !!store.filters.dateFrom ||
     !!store.filters.dateTo ||
-    store.filters.department !== "All Departments"
+    store.filters.department !== "All Departments";
 
-  const currentSort = SORT_OPTIONS.find((o) => o.value === store.sortBy) ?? SORT_OPTIONS[0]
+  const currentSort =
+    SORT_OPTIONS.find((o) => o.value === store.sortBy) ?? SORT_OPTIONS[0];
 
   return (
     <div className="flex h-full flex-col overflow-hidden">
@@ -113,14 +116,14 @@ export default function SearchPage() {
                       <button
                         key={opt.value}
                         onClick={() => {
-                          store.setSortBy(opt.value)
-                          setSortOpen(false)
+                          store.setSortBy(opt.value);
+                          setSortOpen(false);
                         }}
                         className={cn(
                           "w-full px-4 py-2.5 text-left text-sm transition-colors hover:bg-surface-container-low",
                           opt.value === store.sortBy
                             ? "font-semibold text-primary"
-                            : "text-foreground",
+                            : "text-foreground"
                         )}
                       >
                         {opt.label}
@@ -150,14 +153,18 @@ export default function SearchPage() {
             {!store.isLoading && !store.error && store.results.length > 0 && (
               <div className="space-y-4">
                 {store.results.map((result) => (
-                  <SearchResultCard key={result.id} result={result} query={store.query} />
+                  <SearchResultCard
+                    key={result.id}
+                    result={result}
+                    query={store.query}
+                  />
                 ))}
               </div>
             )}
 
             {/* Pagination */}
             {!store.isLoading && totalPages > 1 && (
-              <div className="flex items-center justify-center gap-2 pb-20 pt-10">
+              <div className="flex items-center justify-center gap-2 pt-10 pb-20">
                 <Button
                   variant="outline"
                   size="icon"
@@ -169,7 +176,7 @@ export default function SearchPage() {
                 </Button>
 
                 {Array.from({ length: Math.min(totalPages, 5) }).map((_, i) => {
-                  const pageNum = i + 1
+                  const pageNum = i + 1;
                   return (
                     <button
                       key={pageNum}
@@ -177,13 +184,13 @@ export default function SearchPage() {
                       className={cn(
                         "flex size-10 items-center justify-center rounded-lg text-sm transition-colors",
                         pageNum === store.page
-                          ? "bg-primary font-semibold text-on-primary"
-                          : "border border-border text-foreground hover:bg-surface-container-low",
+                          ? "text-on-primary bg-primary font-semibold"
+                          : "border border-border text-foreground hover:bg-surface-container-low"
                       )}
                     >
                       {pageNum}
                     </button>
-                  )
+                  );
                 })}
 
                 {totalPages > 5 && (
@@ -194,7 +201,7 @@ export default function SearchPage() {
                       className={cn(
                         "flex size-10 items-center justify-center rounded-lg border border-border text-sm transition-colors hover:bg-surface-container-low",
                         store.page === totalPages &&
-                          "border-0 bg-primary font-semibold text-on-primary",
+                          "text-on-primary border-0 bg-primary font-semibold"
                       )}
                     >
                       {totalPages}
@@ -217,5 +224,5 @@ export default function SearchPage() {
         </section>
       </div>
     </div>
-  )
+  );
 }

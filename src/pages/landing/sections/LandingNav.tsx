@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom"
-import { Button } from "@/components/ui/button"
-import ThemeSwitcher from "@/components/shared/ThemeSwitcher"
-import Logo from "@/components/shared/Logo"
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import ThemeSwitcher from "@/components/shared/ThemeSwitcher";
+import Logo from "@/components/shared/Logo";
 
 export default function LandingNav() {
   return (
@@ -20,5 +20,5 @@ export default function LandingNav() {
         </div>
       </div>
     </header>
-  )
+  );
 }

@@ -1,20 +1,20 @@
-import { create } from "zustand"
+import { create } from "zustand";
 
-type ViewMode = "grid" | "list"
+type ViewMode = "grid" | "list";
 
 interface MeetingFilters {
-  dateRange: string
-  activeTags: string[]
+  dateRange: string;
+  activeTags: string[];
 }
 
 interface MeetingStore {
-  view: ViewMode
-  filters: MeetingFilters
+  view: ViewMode;
+  filters: MeetingFilters;
 
-  setView: (view: ViewMode) => void
-  setDateRange: (range: string) => void
-  addTag: (tag: string) => void
-  removeTag: (tag: string) => void
+  setView: (view: ViewMode) => void;
+  setDateRange: (range: string) => void;
+  addTag: (tag: string) => void;
+  removeTag: (tag: string) => void;
 }
 
 export const useMeetingStore = create<MeetingStore>((set) => ({
@@ -43,4 +43,4 @@ export const useMeetingStore = create<MeetingStore>((set) => ({
         activeTags: s.filters.activeTags.filter((t) => t !== tag),
       },
     })),
-}))
+}));

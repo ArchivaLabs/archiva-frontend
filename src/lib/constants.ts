@@ -1,5 +1,5 @@
-import { FileSpreadsheet, FileText } from "lucide-react"
-import type { Meeting, MeetingDocument, SearchResult } from "./types"
+import { FileSpreadsheet, FileText } from "lucide-react";
+import type { Meeting, MeetingDocument, SearchResult } from "./types";
 
 export const DOCUMENTS: MeetingDocument[] = [
   {
@@ -90,9 +90,9 @@ export const DOCUMENTS: MeetingDocument[] = [
     },
     date: "Mar 13, 2025",
   },
-]
+];
 
-export const PAGE_SIZE = 5
+export const PAGE_SIZE = 5;
 
 export const MEETING = {
   breadcrumb: "Senate Committee - March 2025",
@@ -107,7 +107,7 @@ export const MEETING = {
   description:
     "This session covers the annual review of doctoral program accreditation standards and the proposed amendments to the faculty research grant allocation framework for the 2025-2026 academic cycle.",
   documentCount: 5,
-}
+};
 
 export const MEETINGS: Meeting[] = [
   {
@@ -173,13 +173,13 @@ export const MEETINGS: Meeting[] = [
     creator: { name: "Dr. Lee", avatar: "https://i.pravatar.cc/24?img=20" },
     docCount: 42,
   },
-]
+];
 
 export const MEMBERS = [
   { name: "Sarah M.", avatar: "https://i.pravatar.cc/40?img=47" },
   { name: "James R.", avatar: "https://i.pravatar.cc/40?img=53" },
   { name: "Patricia C.", avatar: "https://i.pravatar.cc/40?img=32" },
-]
+];
 
 export const ACTIVITY = [
   {
@@ -196,16 +196,16 @@ export const ACTIVITY = [
     time: "5 hours ago",
     active: false,
   },
-]
+];
 
 export const FILE_ICON: Record<MeetingDocument["type"], typeof FileText> = {
   PDF: FileText,
   DOCX: FileText,
   XLSX: FileSpreadsheet,
   TXT: FileText,
-}
+};
 
-export const SEARCH_PAGE_SIZE = 8
+export const SEARCH_PAGE_SIZE = 8;
 
 export const SEARCH_FILTER_TAGS = [
   "Senate",
@@ -218,7 +218,7 @@ export const SEARCH_FILTER_TAGS = [
   "Admin",
   "Governance",
   "Minutes",
-]
+];
 
 export const SEARCH_FILTER_DEPARTMENTS = [
   "All Departments",
@@ -228,7 +228,7 @@ export const SEARCH_FILTER_DEPARTMENTS = [
   "Financial Archives",
   "Senate Finance Committee",
   "Academic Affairs",
-]
+];
 
 export const SEARCH_MOCK_RESULTS: SearchResult[] = [
   {
@@ -341,4 +341,4 @@ export const SEARCH_MOCK_RESULTS: SearchResult[] = [
     tags: ["Governance", "Minutes"],
     meetingId: "4",
   },
-]
+];

@@ -1,23 +1,21 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import {
   ChevronRight,
   CalendarDays,
   LayoutGrid,
   List,
-  Plus,
   X,
   Filter,
-} from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
-import MeetingCard from "@/components/meetings/MeetingCard"
-import { useMeetingStore } from "@/store/meetingStore"
-import { MEETINGS } from "@/lib/constants"
-
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import MeetingCard from "@/components/meetings/MeetingCard";
+import CreateMeetingModal from "@/components/meetings/CreateMeetingModal";
+import { useMeetingStore } from "@/store/meetingStore";
+import { MEETINGS } from "@/lib/constants";
 
 export default function MeetingsPage() {
-  const { view, filters, setView, setDateRange, removeTag } = useMeetingStore()
-  const { activeTags, dateRange } = filters
+  const { view, filters, setView, setDateRange, removeTag } = useMeetingStore();
+  const { activeTags, dateRange } = filters;
 
   return (
     <section className="flex min-h-full flex-col">
@@ -39,10 +37,7 @@ export default function MeetingsPage() {
               Meetings
             </h1>
           </div>
-          <Button className="gap-2 px-5">
-            <Plus className="size-4" />
-            New Meeting
-          </Button>
+          <CreateMeetingModal />
         </div>
 
         {/* Controls bar */}
@@ -123,5 +118,5 @@ export default function MeetingsPage() {
         </div>
       </div>
     </section>
-  )
+  );
 }

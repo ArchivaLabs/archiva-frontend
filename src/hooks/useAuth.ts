@@ -1,12 +1,12 @@
 import { loginRequest } from "@/lib/msalConfig";
-import { useAuthStore } from "@/store/authStore"
-import { useMsal } from "@azure/msal-react"
+import { useAuthStore } from "@/store/authStore";
+import { useMsal } from "@azure/msal-react";
 
 export function useAuth() {
-  const { instance, accounts } = useMsal()
+  const { instance, accounts } = useMsal();
   const { userId, organizationId, role, status, clearAuth } = useAuthStore();
 
-  const isAuthenticated = !!userId
+  const isAuthenticated = !!userId;
 
   async function login() {
     await instance.loginPopup(loginRequest);
@@ -14,10 +14,17 @@ export function useAuth() {
 
   async function logout() {
     clearAuth();
-    await instance.logoutPopup({postLogoutRedirectUri: "/login"})
+    await instance.logoutPopup({ postLogoutRedirectUri: "/login" });
   }
 
   return {
-    isAuthenticated, userId, organizationId, role, status, account: accounts[0] ?? null, login, logout
-  }
+    isAuthenticated,
+    userId,
+    organizationId,
+    role,
+    status,
+    account: accounts[0] ?? null,
+    login,
+    logout,
+  };
 }

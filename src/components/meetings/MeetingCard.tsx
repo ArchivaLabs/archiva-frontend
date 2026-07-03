@@ -53,5 +53,5 @@ export default function MeetingCard({ meeting }: { meeting: Meeting }) {
         </div>
       </div>
     </Link>
-  )
+  );
 }

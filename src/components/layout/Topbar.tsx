@@ -1,19 +1,20 @@
-import { History, Bell, Upload, Plus, Search } from "lucide-react"
-import { useNavigate, useLocation } from "react-router-dom"
-import { Button } from "@/components/ui/button"
-import ThemeSwitcher from "@/components/shared/ThemeSwitcher"
+import { History, Bell, Upload, Plus, Search } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import ThemeSwitcher from "@/components/shared/ThemeSwitcher";
+import CreateMeetingModal from "@/components/meetings/CreateMeetingModal";
 
 export default function Topbar() {
-  const navigate = useNavigate()
-  const location = useLocation()
-  const isSearchPage = location.pathname === "/search"
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isSearchPage = location.pathname === "/search";
 
   const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      const q = (e.currentTarget.value ?? "").trim()
-      navigate(`/search${q ? `?q=${encodeURIComponent(q)}` : ""}`)
+      const q = (e.currentTarget.value ?? "").trim();
+      navigate(`/search${q ? `?q=${encodeURIComponent(q)}` : ""}`);
     }
-  }
+  };
 
   return (
     <header className="flex shrink-0 items-center gap-3 border-b border-border bg-background px-6 py-3">
@@ -44,11 +45,15 @@ export default function Topbar() {
           <Upload className="size-4" />
           Upload Document
         </Button>
-        <Button size="sm" className="gap-2 p-5 text-white">
-          <Plus className="size-4" />
-          New Meeting
-        </Button>
+        <CreateMeetingModal
+          trigger={
+            <Button size="sm" className="gap-2 p-5 text-white">
+              <Plus className="size-4" />
+              New Meeting
+            </Button>
+          }
+        />
       </div>
     </header>
-  )
+  );
 }

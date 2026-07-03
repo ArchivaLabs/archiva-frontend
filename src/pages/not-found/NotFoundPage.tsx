@@ -4,5 +4,5 @@ export default function NotFoundPage() {
       <h1 className="font-heading text-4xl font-bold">404</h1>
       <p className="text-muted-foreground">Page not found.</p>
     </div>
-  )
+  );
 }

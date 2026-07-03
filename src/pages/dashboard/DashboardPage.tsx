@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import {
   CalendarDays,
   FileText,
@@ -15,9 +15,9 @@ import {
   BookOpen,
   Briefcase,
   FlaskConical,
-} from "lucide-react"
-import { cn } from "@/lib/utils"
-import { useAuthStore } from "@/store/authStore"
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { useAuthStore } from "@/store/authStore";
 
 const stats = [
   {
@@ -50,7 +50,7 @@ const stats = [
     value: "1.2k",
     dark: true,
   },
-]
+];
 
 const meetings = [
   {
@@ -83,23 +83,23 @@ const meetings = [
     date: "Mar 02, 2025",
     status: "ACTION REQ",
   },
-]
+];
 
 const statusStyles: Record<string, string> = {
   COMPLETED: "bg-primary/10 text-primary",
   DRAFTING: "bg-secondary/10 text-secondary",
   "ACTION REQ": "bg-destructive/10 text-destructive",
-}
+};
 
 const quickActions = [
   { icon: FolderOpen, label: "Faculty Archives" },
   { icon: Shield, label: "Senate Bylaws" },
   { icon: CloudUpload, label: "Bulk Upload" },
   { icon: BarChart2, label: "Audit Logs" },
-]
+];
 
 export default function DashboardPage() {
-  const {displayName} = useAuthStore();
+  const { displayName } = useAuthStore();
 
   return (
     <section className="flex flex-col gap-6 p-6">
@@ -124,7 +124,7 @@ export default function DashboardPage() {
       {/* Stat Cards */}
       <div className="grid grid-cols-3 gap-4">
         {stats.map((stat) => {
-          const Icon = stat.icon  
+          const Icon = stat.icon;
           return (
             <div
               key={stat.label}
@@ -167,7 +167,7 @@ export default function DashboardPage() {
                 {stat.value}
               </p>
             </div>
-          )
+          );
         })}
       </div>
 
@@ -203,7 +203,7 @@ export default function DashboardPage() {
             </thead>
             <tbody>
               {meetings.map((meeting) => {
-                const Icon = meeting.icon
+                const Icon = meeting.icon;
                 return (
                   <tr
                     key={meeting.title}
@@ -233,7 +233,7 @@ export default function DashboardPage() {
                       </span>
                     </td>
                   </tr>
-                )
+                );
               })}
             </tbody>
           </table>
@@ -320,5 +320,5 @@ export default function DashboardPage() {
         ))}
       </div>
     </section>
-  )
+  );
 }

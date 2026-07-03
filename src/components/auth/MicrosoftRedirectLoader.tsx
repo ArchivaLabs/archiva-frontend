@@ -1,13 +1,13 @@
-import { Landmark } from "lucide-react"
+import { Landmark } from "lucide-react";
 
 const rings = [
-  { d: 160, dur: "22s", cw: true,  opacity: 0.28 },
-  { d: 280, dur: "36s", cw: false, opacity: 0.20 },
-  { d: 410, dur: "52s", cw: true,  opacity: 0.14 },
-  { d: 550, dur: "70s", cw: false, opacity: 0.10 },
-  { d: 700, dur: "95s", cw: true,  opacity: 0.07 },
-  { d: 870, dur: "130s",cw: false, opacity: 0.05 },
-]
+  { d: 160, dur: "22s", cw: true, opacity: 0.28 },
+  { d: 280, dur: "36s", cw: false, opacity: 0.2 },
+  { d: 410, dur: "52s", cw: true, opacity: 0.14 },
+  { d: 550, dur: "70s", cw: false, opacity: 0.1 },
+  { d: 700, dur: "95s", cw: true, opacity: 0.07 },
+  { d: 870, dur: "130s", cw: false, opacity: 0.05 },
+];
 
 export default function MicrosoftRedirectLoader() {
   return (
@@ -41,7 +41,6 @@ export default function MicrosoftRedirectLoader() {
       `}</style>
 
       <div className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-primary">
-
         {/* Animated dashed rings */}
         {rings.map(({ d, dur, cw, opacity }) => (
           <div
@@ -62,7 +61,10 @@ export default function MicrosoftRedirectLoader() {
         {/* Central content */}
         <div
           className="relative z-10 flex flex-col items-center gap-7"
-          style={{ animation: "archiva-enter 0.55s cubic-bezier(0.16,1,0.3,1) forwards" }}
+          style={{
+            animation:
+              "archiva-enter 0.55s cubic-bezier(0.16,1,0.3,1) forwards",
+          }}
         >
           {/* Logo mark */}
           <div
@@ -98,17 +100,37 @@ export default function MicrosoftRedirectLoader() {
           <div className="h-px w-44 overflow-hidden rounded-full bg-white/10">
             <div
               className="h-full rounded-full bg-white/50"
-              style={{ animation: "archiva-bar 9s cubic-bezier(0.4,0,0.2,1) forwards" }}
+              style={{
+                animation: "archiva-bar 9s cubic-bezier(0.4,0,0.2,1) forwards",
+              }}
             />
           </div>
 
           {/* Microsoft attribution */}
           <div className="flex items-center gap-2 text-white/30">
             <svg width="13" height="13" viewBox="0 0 18 18" fill="none">
-              <rect x="0"   y="0"   width="8.5" height="8.5" fill="currentColor" />
-              <rect x="9.5" y="0"   width="8.5" height="8.5" fill="currentColor" />
-              <rect x="0"   y="9.5" width="8.5" height="8.5" fill="currentColor" />
-              <rect x="9.5" y="9.5" width="8.5" height="8.5" fill="currentColor" />
+              <rect x="0" y="0" width="8.5" height="8.5" fill="currentColor" />
+              <rect
+                x="9.5"
+                y="0"
+                width="8.5"
+                height="8.5"
+                fill="currentColor"
+              />
+              <rect
+                x="0"
+                y="9.5"
+                width="8.5"
+                height="8.5"
+                fill="currentColor"
+              />
+              <rect
+                x="9.5"
+                y="9.5"
+                width="8.5"
+                height="8.5"
+                fill="currentColor"
+              />
             </svg>
             <span className="text-[0.72rem] tracking-widest uppercase">
               Microsoft Authentication
@@ -117,5 +139,5 @@ export default function MicrosoftRedirectLoader() {
         </div>
       </div>
     </>
-  )
+  );
 }

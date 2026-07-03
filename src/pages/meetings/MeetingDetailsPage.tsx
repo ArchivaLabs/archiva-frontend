@@ -5,13 +5,12 @@ import {
   Upload,
   Pencil,
   ChevronRight,
-} from "lucide-react"
-import { Link } from "react-router-dom"
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
-import TagBadge from "@/components/shared/TagBadge"
-import MeetingDocumentsTable from "@/components/meetings/MeetingDocumentsTable"
-import { MEETING, DOCUMENTS, MEMBERS, ACTIVITY } from "@/lib/constants"
+} from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import TagBadge from "@/components/shared/TagBadge";
+import MeetingDocumentsTable from "@/components/meetings/MeetingDocumentsTable";
+import { MEETING, DOCUMENTS } from "@/lib/constants";
 
 export default function MeetingDetailsPage() {
   return (
@@ -86,5 +85,5 @@ export default function MeetingDetailsPage() {
 
       <MeetingDocumentsTable documents={DOCUMENTS} />
     </section>
-  )
+  );
 }

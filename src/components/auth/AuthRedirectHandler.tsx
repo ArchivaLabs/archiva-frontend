@@ -60,7 +60,7 @@ export default function AuthRedirectHandler() {
     return () => {
       if (callbackId) instance.removeEventCallback(callbackId);
     };
-  }, [instance]);
+  }, [instance, navigate, syncUser]);
 
   if (isProcessingAuth || syncUser.isPending)
     return <MicrosoftRedirectLoader />;

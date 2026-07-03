@@ -1,18 +1,18 @@
-import { createBrowserRouter } from "react-router-dom"
+import { createBrowserRouter } from "react-router-dom";
 
-import AppShell from "@/components/layout/AppShell"
-import AuthRedirectHandler from "@/components/auth/AuthRedirectHandler"
-import ProtectedRoute from "@/components/auth/ProtectedRoute"
-import LandingPage from "@/pages/landing/LandingPage"
-import LoginPage from "@/pages/auth/LoginPage"
-import DashboardPage from "@/pages/dashboard/DashboardPage"
-import MeetingsPage from "@/pages/meetings/MeetingsPage"
-import MeetingDetailsPage from "@/pages/meetings/MeetingDetailsPage"
-import DocumentPreviewPage from "@/pages/documents/DocumentPreviewPage"
-import SearchPage from "@/pages/search/SearchPage"
-import UsersPage from "@/pages/users/UsersPage"
-import OnboardingPage from "@/pages/onboarding/OnboardingPage"
-import NotFoundPage from "@/pages/not-found/NotFoundPage"
+import AppShell from "@/components/layout/AppShell";
+import AuthRedirectHandler from "@/components/auth/AuthRedirectHandler";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import LandingPage from "@/pages/landing/LandingPage";
+import LoginPage from "@/pages/auth/LoginPage";
+import DashboardPage from "@/pages/dashboard/DashboardPage";
+import MeetingsPage from "@/pages/meetings/MeetingsPage";
+import MeetingDetailsPage from "@/pages/meetings/MeetingDetailsPage";
+import DocumentPreviewPage from "@/pages/documents/DocumentPreviewPage";
+import SearchPage from "@/pages/search/SearchPage";
+import UsersPage from "@/pages/users/UsersPage";
+import OnboardingPage from "@/pages/onboarding/OnboardingPage";
+import NotFoundPage from "@/pages/not-found/NotFoundPage";
 
 const router = createBrowserRouter([
   {
@@ -78,6 +78,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-])
+]);
 
-export default router
+export default router;

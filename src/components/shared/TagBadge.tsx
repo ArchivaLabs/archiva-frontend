@@ -1,5 +1,5 @@
-import type { TagVariant } from "@/lib/types"
-import { cn } from "@/lib/utils"
+import type { TagVariant } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 const variantStyles: Record<TagVariant, string> = {
   urgent: "bg-destructive-container text-on-destructive-container",
@@ -7,12 +7,12 @@ const variantStyles: Record<TagVariant, string> = {
   neutral: "bg-surface-container-high text-on-surface-variant",
   secondary: "bg-secondary-container/20 text-secondary",
   tertiary: "bg-tertiary/15 text-tertiary",
-}
+};
 
 interface TagBadgeProps {
-  label: string
-  variant?: TagVariant
-  className?: string
+  label: string;
+  variant?: TagVariant;
+  className?: string;
 }
 
 export default function TagBadge({
@@ -30,5 +30,5 @@ export default function TagBadge({
     >
       {label}
     </span>
-  )
+  );
 }

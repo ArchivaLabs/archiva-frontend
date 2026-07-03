@@ -1,6 +1,6 @@
-import { Landmark } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { Link } from "react-router-dom"
+import { Landmark } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
 
 interface LogoProps {
   /**
@@ -8,13 +8,13 @@ interface LogoProps {
    * "dark"  → white box + white text (primary/teal bg)
    * omit   → auto: follows the active theme via CSS dark: classes
    */
-  variant?: "light" | "dark"
-  className?: string
+  variant?: "light" | "dark";
+  className?: string;
 }
 
 export default function Logo({ variant, className }: LogoProps) {
-  const forced = variant !== undefined
-  const isDark = variant === "dark"
+  const forced = variant !== undefined;
+  const isDark = variant === "dark";
 
   return (
     <Link to="/" className={cn("flex items-center gap-3", className)}>
@@ -52,5 +52,5 @@ export default function Logo({ variant, className }: LogoProps) {
         Archiva
       </span>
     </Link>
-  )
+  );
 }

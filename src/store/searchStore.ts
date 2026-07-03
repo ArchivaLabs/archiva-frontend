@@ -1,5 +1,5 @@
-import { create } from "zustand"
-import type { SearchFilters, SearchResult, SearchSortBy } from "@/lib/types"
+import { create } from "zustand";
+import type { SearchFilters, SearchResult, SearchSortBy } from "@/lib/types";
 
 const DEFAULT_FILTERS: SearchFilters = {
   searchIn: {
@@ -11,30 +11,30 @@ const DEFAULT_FILTERS: SearchFilters = {
   dateTo: "",
   activeTags: [],
   department: "All Departments",
-}
+};
 
 interface SearchStore {
-  query: string
-  filters: SearchFilters
-  sortBy: SearchSortBy
-  page: number
-  results: SearchResult[]
-  total: number
-  isLoading: boolean
-  error: string | null
+  query: string;
+  filters: SearchFilters;
+  sortBy: SearchSortBy;
+  page: number;
+  results: SearchResult[];
+  total: number;
+  isLoading: boolean;
+  error: string | null;
 
-  setQuery: (q: string) => void
-  toggleSearchIn: (key: keyof SearchFilters["searchIn"]) => void
-  setDateFrom: (date: string) => void
-  setDateTo: (date: string) => void
-  toggleTag: (tag: string) => void
-  setDepartment: (dept: string) => void
-  setSortBy: (sortBy: SearchSortBy) => void
-  setPage: (page: number) => void
-  setResults: (results: SearchResult[], total: number) => void
-  setLoading: (loading: boolean) => void
-  setError: (error: string | null) => void
-  resetFilters: () => void
+  setQuery: (q: string) => void;
+  toggleSearchIn: (key: keyof SearchFilters["searchIn"]) => void;
+  setDateFrom: (date: string) => void;
+  setDateTo: (date: string) => void;
+  toggleTag: (tag: string) => void;
+  setDepartment: (dept: string) => void;
+  setSortBy: (sortBy: SearchSortBy) => void;
+  setPage: (page: number) => void;
+  setResults: (results: SearchResult[], total: number) => void;
+  setLoading: (loading: boolean) => void;
+  setError: (error: string | null) => void;
+  resetFilters: () => void;
 }
 
 export const useSearchStore = create<SearchStore>((set) => ({
@@ -90,7 +90,10 @@ export const useSearchStore = create<SearchStore>((set) => ({
 
   resetFilters: () =>
     set({
-      filters: { ...DEFAULT_FILTERS, searchIn: { ...DEFAULT_FILTERS.searchIn } },
+      filters: {
+        ...DEFAULT_FILTERS,
+        searchIn: { ...DEFAULT_FILTERS.searchIn },
+      },
       page: 1,
     }),
-}))
+}));

@@ -1,6 +1,6 @@
-import { Outlet } from "react-router-dom"
-import Sidebar from "@/components/layout/Sidebar"
-import Topbar from "@/components/layout/Topbar"
+import { Outlet } from "react-router-dom";
+import Sidebar from "@/components/layout/Sidebar";
+import Topbar from "@/components/layout/Topbar";
 
 export default function AppShell() {
   return (
@@ -13,5 +13,5 @@ export default function AppShell() {
         </main>
       </div>
     </div>
-  )
+  );
 }

@@ -1,10 +1,10 @@
-import { Database, Search, Shield } from "lucide-react"
-import type { LucideIcon } from "lucide-react"
+import { Database, Search, Shield } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 interface Feature {
-  icon: LucideIcon
-  title: string
-  description: string
+  icon: LucideIcon;
+  title: string;
+  description: string;
 }
 
 const features: Feature[] = [
@@ -26,7 +26,7 @@ const features: Feature[] = [
     description:
       "Comprehensive role-based access control. Monitor document lifecycle, manage permissions, and ensure compliance with institutional data policies.",
   },
-]
+];
 
 export default function FeaturesSection() {
   return (
@@ -43,16 +43,21 @@ export default function FeaturesSection() {
 
         <div className="grid gap-6 sm:grid-cols-3">
           {features.map(({ icon: Icon, title, description }) => (
-            <div key={title} className="rounded-xl border border-border bg-card p-6">
+            <div
+              key={title}
+              className="rounded-xl border border-border bg-card p-6"
+            >
               <div className="mb-4 inline-flex rounded-lg bg-primary/10 p-2.5">
                 <Icon className="size-5 text-primary" />
               </div>
-              <h3 className="mb-2 text-base font-semibold text-foreground">{title}</h3>
+              <h3 className="mb-2 text-base font-semibold text-foreground">
+                {title}
+              </h3>
               <p className="text-sm text-muted-foreground">{description}</p>
             </div>
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }

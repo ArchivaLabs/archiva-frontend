@@ -1,18 +1,18 @@
-import { FILE_ICON, PAGE_SIZE } from "@/lib/constants"
-import type { MeetingDocument } from "@/lib/types"
-import { ChevronLeft, ChevronRight, Download, Eye } from "lucide-react"
-import { useState } from "react"
-import FileTypeBadge from "../shared/FileTypeBadge"
-import { cn } from "@/lib/utils"
+import { FILE_ICON, PAGE_SIZE } from "@/lib/constants";
+import type { MeetingDocument } from "@/lib/types";
+import { ChevronLeft, ChevronRight, Download, Eye } from "lucide-react";
+import { useState } from "react";
+import FileTypeBadge from "../shared/FileTypeBadge";
+import { cn } from "@/lib/utils";
 
 export default function MeetingDocumentsTable({
   documents,
 }: {
-  documents: MeetingDocument[]
+  documents: MeetingDocument[];
 }) {
-  const [page, setPage] = useState(1)
-  const totalPages = Math.ceil(documents.length / PAGE_SIZE)
-  const pagedDocs = documents.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+  const [page, setPage] = useState(1);
+  const totalPages = Math.ceil(documents.length / PAGE_SIZE);
+  const pagedDocs = documents.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   return (
     <div className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
@@ -48,7 +48,7 @@ export default function MeetingDocumentsTable({
           </thead>
           <tbody className="divide-y divide-border">
             {pagedDocs.map((doc) => {
-              const Icon = FILE_ICON[doc.type]
+              const Icon = FILE_ICON[doc.type];
               return (
                 <tr
                   key={doc.id}
@@ -102,7 +102,7 @@ export default function MeetingDocumentsTable({
                     </div>
                   </td>
                 </tr>
-              )
+              );
             })}
           </tbody>
         </table>
@@ -145,5 +145,5 @@ export default function MeetingDocumentsTable({
         </button>
       </div>
     </div>
-  )
+  );
 }

@@ -1,9 +1,14 @@
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 function SkeletonLine({ className }: { className?: string }) {
   return (
-    <div className={cn("animate-pulse rounded bg-surface-container-high", className)} />
-  )
+    <div
+      className={cn(
+        "animate-pulse rounded bg-surface-container-high",
+        className
+      )}
+    />
+  );
 }
 
 function SkeletonCard() {
@@ -25,15 +30,19 @@ function SkeletonCard() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default function SearchResultsSkeleton({ count = 4 }: { count?: number }) {
+export default function SearchResultsSkeleton({
+  count = 4,
+}: {
+  count?: number;
+}) {
   return (
     <div className="space-y-4">
       {Array.from({ length: count }).map((_, i) => (
         <SkeletonCard key={i} />
       ))}
     </div>
-  )
+  );
 }

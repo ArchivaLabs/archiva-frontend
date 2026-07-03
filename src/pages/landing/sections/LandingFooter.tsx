@@ -1,8 +1,13 @@
-import { Link } from "react-router-dom"
-import { Archive, Globe, AtSign } from "lucide-react"
+import { Link } from "react-router-dom";
+import { Archive, Globe, AtSign } from "lucide-react";
 
-const platformLinks = ["Solutions", "Security", "Compliance", "API Docs"]
-const companyLinks = ["About Us", "Academic Ethics", "Privacy Policy", "Terms of Service"]
+const platformLinks = ["Solutions", "Security", "Compliance", "API Docs"];
+const companyLinks = [
+  "About Us",
+  "Academic Ethics",
+  "Privacy Policy",
+  "Terms of Service",
+];
 
 export default function LandingFooter() {
   return (
@@ -14,21 +19,23 @@ export default function LandingFooter() {
               <div className="flex size-6 items-center justify-center rounded-md bg-primary">
                 <Archive className="size-3.5 text-primary-foreground" />
               </div>
-              <span className="text-base font-bold text-foreground">Archiva</span>
+              <span className="text-base font-bold text-foreground">
+                Archiva
+              </span>
             </div>
             <p className="mb-4 text-sm text-muted-foreground">
-              Providing the quiet infrastructure for university administration. Secure,
-              compliant, and lightning-fast records management.
+              Providing the quiet infrastructure for university administration.
+              Secure, compliant, and lightning-fast records management.
             </p>
             <div className="flex items-center gap-3">
-              <Globe className="size-4 text-muted-foreground hover:text-foreground cursor-pointer transition-colors" />
-              <AtSign className="size-4 text-muted-foreground hover:text-foreground cursor-pointer transition-colors" />
+              <Globe className="size-4 cursor-pointer text-muted-foreground transition-colors hover:text-foreground" />
+              <AtSign className="size-4 cursor-pointer text-muted-foreground transition-colors hover:text-foreground" />
             </div>
           </div>
 
           <div className="flex gap-12">
             <div>
-              <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-foreground">
+              <p className="mb-3 text-xs font-semibold tracking-wider text-foreground uppercase">
                 Platform
               </p>
               <ul className="space-y-2">
@@ -46,7 +53,7 @@ export default function LandingFooter() {
             </div>
 
             <div>
-              <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-foreground">
+              <p className="mb-3 text-xs font-semibold tracking-wider text-foreground uppercase">
                 Company
               </p>
               <ul className="space-y-2">
@@ -68,10 +75,12 @@ export default function LandingFooter() {
           </p>
           <div className="flex items-center gap-1.5">
             <span className="size-2 rounded-full bg-primary" />
-            <span className="text-xs text-muted-foreground">System Status: Operational</span>
+            <span className="text-xs text-muted-foreground">
+              System Status: Operational
+            </span>
           </div>
         </div>
       </div>
     </footer>
-  )
+  );
 }

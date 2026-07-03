@@ -1,14 +1,14 @@
-import type { ReactNode } from "react"
-import Logo from "@/components/shared/Logo"
+import type { ReactNode } from "react";
+import Logo from "@/components/shared/Logo";
 
-const ringDiameters = [200, 330, 460, 590, 720, 850]
+const ringDiameters = [200, 330, 460, 590, 720, 850];
 
 interface AuthLeftPanelProps {
-  badge?: string
-  headline: string
-  subtext: string
-  children: ReactNode
-  footer: ReactNode
+  badge?: string;
+  headline: string;
+  subtext: string;
+  children: ReactNode;
+  footer: ReactNode;
 }
 
 export default function AuthLeftPanel({
@@ -52,5 +52,5 @@ export default function AuthLeftPanel({
         {footer}
       </div>
     </article>
-  )
+  );
 }

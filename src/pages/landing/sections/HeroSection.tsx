@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom"
-import { ArrowRight, ShieldCheck, CloudDownload } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import dashboardPreview from "/dashboard-preview.png"
+import { Link } from "react-router-dom";
+import { ArrowRight, ShieldCheck, CloudDownload } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import dashboardPreview from "/dashboard-preview.png";
 
 export default function HeroSection() {
   return (
@@ -19,9 +19,9 @@ export default function HeroSection() {
         </h1>
 
         <p className="mx-auto mb-10 max-w-2xl text-lg text-muted-foreground">
-          Your organisation&apos;s meeting memory. Seamlessly capture, index, and
-          retrieve institutional knowledge from every senate, faculty, and committee
-          session.
+          Your organisation&apos;s meeting memory. Seamlessly capture, index,
+          and retrieve institutional knowledge from every senate, faculty, and
+          committee session.
         </p>
 
         <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
@@ -53,5 +53,5 @@ export default function HeroSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

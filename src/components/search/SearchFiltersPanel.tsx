@@ -1,16 +1,16 @@
-import { cn } from "@/lib/utils"
-import type { SearchFilters } from "@/lib/types"
+import { cn } from "@/lib/utils";
+import type { SearchFilters } from "@/lib/types";
 
 interface SearchFiltersPanelProps {
-  filters: SearchFilters
-  availableTags: string[]
-  availableDepartments: string[]
-  onToggleSearchIn: (key: keyof SearchFilters["searchIn"]) => void
-  onDateFromChange: (date: string) => void
-  onDateToChange: (date: string) => void
-  onToggleTag: (tag: string) => void
-  onDepartmentChange: (dept: string) => void
-  onReset: () => void
+  filters: SearchFilters;
+  availableTags: string[];
+  availableDepartments: string[];
+  onToggleSearchIn: (key: keyof SearchFilters["searchIn"]) => void;
+  onDateFromChange: (date: string) => void;
+  onDateToChange: (date: string) => void;
+  onToggleTag: (tag: string) => void;
+  onDepartmentChange: (dept: string) => void;
+  onReset: () => void;
 }
 
 export default function SearchFiltersPanel({
@@ -26,7 +26,7 @@ export default function SearchFiltersPanel({
 }: SearchFiltersPanelProps) {
   return (
     <aside className="hidden w-72 shrink-0 overflow-y-auto border-r border-border bg-background p-6 lg:block">
-      <p className="mb-6 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+      <p className="mb-6 text-xs font-medium tracking-wider text-muted-foreground uppercase">
         Filters
       </p>
 
@@ -42,7 +42,10 @@ export default function SearchFiltersPanel({
                 { key: "meetingMinutes", label: "Meeting Minutes" },
               ] as const
             ).map(({ key, label }) => (
-              <label key={key} className="group flex cursor-pointer items-center gap-3">
+              <label
+                key={key}
+                className="group flex cursor-pointer items-center gap-3"
+              >
                 <input
                   type="checkbox"
                   checked={filters.searchIn[key]}
@@ -87,7 +90,7 @@ export default function SearchFiltersPanel({
           <p className="mb-3 text-sm font-medium text-foreground">Tags</p>
           <div className="flex flex-wrap gap-2">
             {availableTags.map((tag) => {
-              const isActive = filters.activeTags.includes(tag)
+              const isActive = filters.activeTags.includes(tag);
               return (
                 <button
                   key={tag}
@@ -95,20 +98,22 @@ export default function SearchFiltersPanel({
                   className={cn(
                     "rounded-full px-3 py-1 text-xs font-medium transition-colors",
                     isActive
-                      ? "bg-primary text-on-primary"
-                      : "bg-surface-container-high text-on-surface-variant hover:bg-primary-container/20",
+                      ? "text-on-primary bg-primary"
+                      : "bg-surface-container-high text-on-surface-variant hover:bg-primary-container/20"
                   )}
                 >
                   {tag}
                 </button>
-              )
+              );
             })}
           </div>
         </section>
 
         {/* Departments */}
         <section>
-          <p className="mb-3 text-sm font-medium text-foreground">Departments</p>
+          <p className="mb-3 text-sm font-medium text-foreground">
+            Departments
+          </p>
           <select
             value={filters.department}
             onChange={(e) => onDepartmentChange(e.target.value)}
@@ -130,5 +135,5 @@ export default function SearchFiltersPanel({
         Reset all filters
       </button>
     </aside>
-  )
+  );
 }

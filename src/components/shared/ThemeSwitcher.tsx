@@ -1,9 +1,9 @@
-import { Sun, Moon } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { useTheme } from "@/components/theme-provider"
+import { Sun, Moon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useTheme } from "@/components/theme-provider";
 
 export default function ThemeSwitcher() {
-  const { theme, setTheme } = useTheme()
+  const { theme, setTheme } = useTheme();
 
   return (
     <Button
@@ -13,7 +13,11 @@ export default function ThemeSwitcher() {
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       aria-label="Toggle theme"
     >
-      {theme === "dark" ? <Sun className="size-4" /> : <Moon className="size-4" />}
+      {theme === "dark" ? (
+        <Sun className="size-4" />
+      ) : (
+        <Moon className="size-4" />
+      )}
     </Button>
-  )
+  );
 }
