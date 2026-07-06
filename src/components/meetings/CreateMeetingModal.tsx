@@ -20,6 +20,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useCreateMeeting } from "@/hooks/mutations/useCreateMeeting";
 
 const EMPTY_FORM = {
   title: "",
@@ -43,6 +44,7 @@ export default function CreateMeetingModal({
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState("");
   const [touched, setTouched] = useState(false);
+  const createMeeting = useCreateMeeting(() => handleOpenChange(false));
 
   const isValid = form.title.trim() && form.date && form.time;
 
@@ -81,9 +83,16 @@ export default function CreateMeetingModal({
     e.preventDefault();
     setTouched(true);
     if (!isValid) return;
-    // TODO: wire to POST /api/Meetings once the backend endpoint is available.
-    // Submission is intentionally a no-op for now — see ASSUMPTIONS.md.
-    handleOpenChange(false);
+
+    createMeeting.mutate({
+      title: form.title.trim(),
+      description: form.description.trim() || null,
+      meetingDate: form.date,
+      meetingTime: `${form.time}:00`,
+      tags,
+    });
+
+    console.log("Form submitted");
   }
 
   return (

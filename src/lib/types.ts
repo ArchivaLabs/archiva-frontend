@@ -37,16 +37,6 @@ export interface SearchResponse {
   total: number;
 }
 
-export interface Meeting {
-  id: string;
-  title: string;
-  date: string;
-  time: string;
-  tags: { label: string; variant: TagVariant }[];
-  creator: { name: string; avatar: string };
-  docCount: number;
-}
-
 export type FileType = "PDF" | "DOCX" | "XLSX" | "TXT";
 
 export interface MeetingDocument {
@@ -90,4 +80,45 @@ export interface CreateOrganizationResponse {
   userId: string;
   organizationName: string;
   organizationUrl: string | null;
+}
+
+export interface MeetingDto {
+  id: number;
+  title: string;
+  description: string | null;
+  meetingDate: string; // ISO DATE STRING.
+  meetingTime: string;
+  createdBy: string | null;
+  createdByAvatar: string | null;
+  tags: string[];
+  documentCount: number;
+  created: string; // ISO DATE TIME.
+}
+
+export interface GetMeetingsResponse {
+  meetings: MeetingDto[];
+  totalCount: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+}
+
+export interface CreateMeetingPayload {
+  title: string;
+  description: string | null;
+  meetingDate: string; // YYYY-MM-DD
+  meetingTime: string; // HH:mm:ss
+  tags: string[];
+}
+
+export interface CreateMeetingResponse {
+  id: number;
+  title: string;
+  description: string | null;
+  meetingDate: string;
+  meetingTime: string;
+  organizationId: number;
+  tags: string[];
 }
