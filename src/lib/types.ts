@@ -88,6 +88,7 @@ export interface MeetingDto {
   description: string | null;
   meetingDate: string; // ISO DATE STRING.
   meetingTime: string;
+  location: string | null;
   createdBy: string | null;
   createdByAvatar: string | null;
   tags: string[];
@@ -110,6 +111,7 @@ export interface CreateMeetingPayload {
   description: string | null;
   meetingDate: string; // YYYY-MM-DD
   meetingTime: string; // HH:mm:ss
+  location: string | null;
   tags: string[];
 }
 
@@ -121,4 +123,29 @@ export interface CreateMeetingResponse {
   meetingTime: string;
   organizationId: number;
   tags: string[];
+}
+
+export interface DocumentDto {
+  id: number;
+  fileName: string;
+  fileType: string;
+  fileSizeInBytes: number;
+  blobUrl: string;
+  description: string | null;
+  uploadedBy: string | null;
+  created: string;
+}
+
+export interface MeetingDetailDto {
+  id: number;
+  title: string;
+  description: string | null;
+  meetingDate: string;
+  meetingTime: string;
+  location: string | null;
+  createdBy: string | null;
+  createdByAvatar: string | null;
+  tags: string[];
+  documents: DocumentDto[];
+  created: string;
 }

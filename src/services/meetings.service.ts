@@ -3,6 +3,7 @@ import type {
   CreateMeetingPayload,
   CreateMeetingResponse,
   GetMeetingsResponse,
+  MeetingDetailDto,
 } from "@/lib/types";
 
 export interface GetMeetingsParams {
@@ -23,6 +24,11 @@ export const meetingsService = {
 
     console.log(data);
 
+    return data;
+  },
+
+  async getMeetingById(id: number): Promise<MeetingDetailDto> {
+    const { data } = await api.get<MeetingDetailDto>(`/api/meetings/${id}`);
     return data;
   },
 

@@ -1,5 +1,5 @@
 import { FileSpreadsheet, FileText } from "lucide-react";
-import type { Meeting, MeetingDocument, SearchResult } from "./types";
+import type { MeetingDocument, SearchResult } from "./types";
 
 export const DOCUMENTS: MeetingDocument[] = [
   {
@@ -108,72 +108,6 @@ export const MEETING = {
     "This session covers the annual review of doctoral program accreditation standards and the proposed amendments to the faculty research grant allocation framework for the 2025-2026 academic cycle.",
   documentCount: 5,
 };
-
-export const MEETINGS: Meeting[] = [
-  {
-    id: "1",
-    title: "Faculty Board Review",
-    date: "Oct 24, 2023",
-    time: "10:00 AM",
-    tags: [
-      { label: "Urgent", variant: "urgent" },
-      { label: "Senate", variant: "neutral" },
-    ],
-    creator: { name: "Dr. Yusuf", avatar: "https://i.pravatar.cc/24?img=14" },
-    docCount: 12,
-  },
-  {
-    id: "2",
-    title: "Budget Allocation Q4",
-    date: "Oct 26, 2023",
-    time: "02:30 PM",
-    tags: [{ label: "Finance", variant: "secondary" }],
-    creator: { name: "Prof. Chen", avatar: "https://i.pravatar.cc/24?img=47" },
-    docCount: 5,
-  },
-  {
-    id: "3",
-    title: "Academic Affairs Monthly",
-    date: "Oct 28, 2023",
-    time: "09:00 AM",
-    tags: [
-      { label: "Senate", variant: "neutral" },
-      { label: "Recurring", variant: "primary" },
-    ],
-    creator: { name: "Dr. Aris", avatar: "https://i.pravatar.cc/24?img=53" },
-    docCount: 28,
-  },
-  {
-    id: "4",
-    title: "Grant Proposal Symposium",
-    date: "Nov 02, 2023",
-    time: "11:30 AM",
-    tags: [{ label: "Research", variant: "tertiary" }],
-    creator: { name: "Prof. Sarah", avatar: "https://i.pravatar.cc/24?img=32" },
-    docCount: 8,
-  },
-  {
-    id: "5",
-    title: "Staff Discipline Committee",
-    date: "Nov 05, 2023",
-    time: "03:00 PM",
-    tags: [{ label: "Admin", variant: "neutral" }],
-    creator: { name: "Mr. Thorne", avatar: "https://i.pravatar.cc/24?img=15" },
-    docCount: 3,
-  },
-  {
-    id: "6",
-    title: "Emergency Grants Review",
-    date: "Nov 10, 2023",
-    time: "08:30 AM",
-    tags: [
-      { label: "Urgent", variant: "urgent" },
-      { label: "Finance", variant: "secondary" },
-    ],
-    creator: { name: "Dr. Lee", avatar: "https://i.pravatar.cc/24?img=20" },
-    docCount: 42,
-  },
-];
 
 export const MEMBERS = [
   { name: "Sarah M.", avatar: "https://i.pravatar.cc/40?img=47" },

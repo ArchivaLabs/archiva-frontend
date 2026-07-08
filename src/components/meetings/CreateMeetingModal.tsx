@@ -89,6 +89,7 @@ export default function CreateMeetingModal({
       description: form.description.trim() || null,
       meetingDate: form.date,
       meetingTime: `${form.time}:00`,
+      location: form.location,
       tags,
     });
 

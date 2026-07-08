@@ -7,11 +7,14 @@ import {
   Users,
   Settings,
   HelpCircle,
+  LogOutIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Logo from "../shared/Logo";
 import { useAuthStore } from "@/store/authStore";
+import { getAvatarUrl } from "@/lib/avatar";
+import { useAuth } from "@/hooks/useAuth";
 
 const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
@@ -22,7 +25,8 @@ const navItems = [
 
 export default function Sidebar() {
   const { pathname } = useLocation();
-  const { organizationName, displayName } = useAuthStore();
+  const { organizationName, displayName, avatarUrl } = useAuthStore();
+  const { logout } = useAuth();
 
   return (
     <aside className="flex w-sidebar-width shrink-0 flex-col border-r border-border bg-nav-sidebar px-5">
@@ -76,13 +80,23 @@ export default function Sidebar() {
           <HelpCircle className="size-4 shrink-0" />
           Help
         </Link>
+        <button
+          type="button"
+          onClick={() => void logout()}
+          className="flex w-full cursor-pointer items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-surface-container hover:text-foreground dark:text-white/60 dark:hover:bg-white/5 dark:hover:text-white/90"
+        >
+          <LogOutIcon className="size-4 shrink-0" />
+          Logout
+        </button>
       </div>
 
       <div className="border-t border-border px-3 py-3">
         <div className="flex items-center gap-2.5">
-          <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/20 text-xs font-semibold text-primary dark:bg-primary/40 dark:text-white">
-            AY
-          </div>
+          <img
+            src={getAvatarUrl(avatarUrl, displayName)}
+            alt={displayName ?? "User"}
+            className="size-8 shrink-0 rounded-full object-cover ring-2 ring-background"
+          />
           <div className="min-w-0">
             <p className="truncate text-xs font-medium text-foreground dark:text-white">
               {displayName}

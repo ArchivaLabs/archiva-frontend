@@ -14,7 +14,7 @@ export function useAuth() {
 
   async function logout() {
     clearAuth();
-    await instance.logoutPopup({ postLogoutRedirectUri: "/login" });
+    await instance.logoutRedirect({ postLogoutRedirectUri: "/login" });
   }
 
   return {
