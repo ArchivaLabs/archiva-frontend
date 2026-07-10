@@ -149,3 +149,9 @@ export interface MeetingDetailDto {
   documents: DocumentDto[];
   created: string;
 }
+
+export interface UploadDocumentPayload {
+  meetingId: number;
+  file: File;
+  description?: string;
+}

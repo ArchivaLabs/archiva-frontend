@@ -1,7 +1,7 @@
 import {
   Calendar,
   Clock,
-  Upload,
+  MapPin,
   Pencil,
   ChevronRight,
   Loader2,
@@ -10,13 +10,15 @@ import { Link, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import TagBadge from "@/components/shared/TagBadge";
 import MeetingDocumentsTable from "@/components/meetings/MeetingDocumentsTable";
+import UploadDocumentModal from "@/components/meetings/UploadDocumentModal";
 import { useMeeting } from "@/hooks/queries/useMeeting";
 import { getAvatarUrl } from "@/lib/avatar";
 import { formatDate, formatTime } from "@/lib/utils";
 
 export default function MeetingDetailsPage() {
   const { id } = useParams<{ id: string }>();
-  const { data: meeting, isPending, isError } = useMeeting(Number(id));
+  const meetingId = Number(id);
+  const { data: meeting, isPending, isError } = useMeeting(meetingId);
 
   if (isPending) {
     return (
@@ -79,8 +81,15 @@ export default function MeetingDetailsPage() {
               </span>
               <span className="flex items-center gap-1.5">
                 <Clock className="size-4 shrink-0" />
-                {meeting.meetingTime}
+                {formatTime(meeting.meetingTime)}
+                {/* {meeting.meetingTime} */}
               </span>
+              {meeting.location && (
+                <span className="flex items-center gap-1.5">
+                  <MapPin className="size-4 shrink-0" />
+                  {meeting.location}
+                </span>
+              )}
             </div>
           </div>
 
@@ -117,10 +126,7 @@ export default function MeetingDetailsPage() {
             </p>
           </div>
           <div className="mt-8 flex flex-col gap-3">
-            <Button className="w-full gap-2">
-              <Upload className="size-4" />
-              Upload Document
-            </Button>
+            <UploadDocumentModal meetingId={meetingId} />
             <Button variant="outline" className="w-full gap-2">
               <Pencil className="size-4" />
               Edit Meeting Info
