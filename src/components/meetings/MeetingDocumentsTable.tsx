@@ -5,6 +5,7 @@ import { useState } from "react";
 import FileTypeBadge from "../shared/FileTypeBadge";
 import { cn, formatDate, formatFileSize } from "@/lib/utils";
 import { getAvatarUrl } from "@/lib/avatar";
+import DocumentViewerModal from "@/components/documents/DocumentViewerModal";
 
 export default function MeetingDocumentsTable({
   documents,
@@ -106,15 +107,18 @@ export default function MeetingDocumentsTable({
                       </td>
                       <td className="px-8 py-5 text-right">
                         <div className="inline-flex items-center gap-1">
-                          <a
-                            href={doc.blobUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="rounded p-1 text-primary transition-colors hover:bg-primary/10"
-                            title="Preview"
-                          >
-                            <Eye className="size-4" />
-                          </a>
+                          <DocumentViewerModal
+                            document={doc}
+                            trigger={
+                              <button
+                                type="button"
+                                className="rounded p-1 text-primary transition-colors hover:bg-primary/10"
+                                title="Preview"
+                              >
+                                <Eye className="size-4" />
+                              </button>
+                            }
+                          />
                           <a
                             href={doc.blobUrl}
                             download={doc.fileName}

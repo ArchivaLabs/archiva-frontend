@@ -37,6 +37,7 @@ dist-ssr
 
 CLAUDE.md
 CLAUDE-V1.md
+ASSUMPTIONS.md
 plan.md
 tasks/
 .playwright-mcp/
