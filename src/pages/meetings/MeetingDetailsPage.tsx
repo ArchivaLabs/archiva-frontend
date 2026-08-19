@@ -14,11 +14,14 @@ import UploadDocumentModal from "@/components/meetings/UploadDocumentModal";
 import { useMeeting } from "@/hooks/queries/useMeeting";
 import { getAvatarUrl } from "@/lib/avatar";
 import { formatDate, formatTime } from "@/lib/utils";
+import EditMeetingModal from "@/components/meetings/EditMeetingModal";
 
 export default function MeetingDetailsPage() {
   const { id } = useParams<{ id: string }>();
   const meetingId = Number(id);
   const { data: meeting, isPending, isError } = useMeeting(meetingId);
+
+  console.log(meeting?.location);
 
   if (isPending) {
     return (
@@ -127,10 +130,7 @@ export default function MeetingDetailsPage() {
           </div>
           <div className="mt-8 flex flex-col gap-3">
             <UploadDocumentModal meetingId={meetingId} />
-            <Button variant="outline" className="w-full gap-2">
-              <Pencil className="size-4" />
-              Edit Meeting Info
-            </Button>
+            <EditMeetingModal meeting={meeting} />
           </div>
         </article>
       </div>

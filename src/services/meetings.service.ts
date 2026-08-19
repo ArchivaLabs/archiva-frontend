@@ -4,6 +4,8 @@ import type {
   CreateMeetingResponse,
   GetMeetingsResponse,
   MeetingDetailDto,
+  UpdateMeetingPayload,
+  UpdateMeetingResponse,
 } from "@/lib/types";
 
 export interface GetMeetingsParams {
@@ -40,6 +42,20 @@ export const meetingsService = {
       payload
     );
     console.log(data);
+    return data;
+  },
+
+  async updateMeeting(
+    id: number,
+    payload: UpdateMeetingPayload
+  ): Promise<UpdateMeetingResponse> {
+    const { data } = await api.put<UpdateMeetingResponse>(
+      `/api/meetings/${id}`,
+      payload
+    );
+
+    console.log(data);
+
     return data;
   },
 };

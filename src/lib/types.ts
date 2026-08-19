@@ -125,6 +125,17 @@ export interface CreateMeetingResponse {
   tags: string[];
 }
 
+export interface UpdateMeetingPayload {
+  title: string;
+  description: string | null;
+  meetingDate: string;
+  meetingTime: string;
+  location: string | null;
+  tags: string[];
+}
+
+export type UpdateMeetingResponse = MeetingDetailDto;
+
 export interface DocumentDto {
   id: number;
   fileName: string;
