@@ -133,13 +133,29 @@ export default function MeetingsPage() {
             </p>
           </div>
         ) : data?.meetings.length === 0 ? (
+          // Deleting the last meeting on a page empties it without emptying the
+          // list, so this state has to distinguish "nothing here" from "nothing
+          // left on this page" and offer a way back.
           <div className="flex flex-col items-center justify-center py-24 text-center">
             <p className="text-sm font-medium text-foreground">
-              No meetings yet.
+              {page > 1 ? "Nothing left on this page." : "No meetings yet."}
             </p>
             <p className="mt-1 text-xs text-muted-foreground">
-              Create your first meeting to get started.
+              {page > 1
+                ? "The remaining meetings are on earlier pages."
+                : "Create your first meeting to get started."}
             </p>
+            {page > 1 && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setPage(1)}
+                className="mt-4 gap-1"
+              >
+                <ChevronLeft className="size-4" />
+                Back to first page
+              </Button>
+            )}
           </div>
         ) : (
           <>

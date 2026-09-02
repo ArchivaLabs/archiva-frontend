@@ -90,10 +90,14 @@ export interface MeetingDto {
   meetingTime: string;
   location: string | null;
   createdBy: string | null;
+  createdById: string | null;
   createdByAvatar: string | null;
   tags: string[];
   documentCount: number;
   created: string; // ISO DATE TIME.
+  // Server-computed per meeting (Admin, or the creator). The backend remains
+  // the enforcement point — this only decides whether to render the affordance.
+  canDelete: boolean;
 }
 
 export interface GetMeetingsResponse {
@@ -155,10 +159,12 @@ export interface MeetingDetailDto {
   meetingTime: string;
   location: string | null;
   createdBy: string | null;
+  createdById: string | null;
   createdByAvatar: string | null;
   tags: string[];
   documents: DocumentDto[];
   created: string;
+  canDelete: boolean;
 }
 
 export interface UploadDocumentPayload {

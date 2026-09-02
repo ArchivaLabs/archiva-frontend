@@ -1,13 +1,5 @@
-import {
-  Calendar,
-  Clock,
-  MapPin,
-  Pencil,
-  ChevronRight,
-  Loader2,
-} from "lucide-react";
-import { Link, useParams } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { Calendar, Clock, MapPin, ChevronRight, Loader2 } from "lucide-react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import TagBadge from "@/components/shared/TagBadge";
 import MeetingDocumentsTable from "@/components/meetings/MeetingDocumentsTable";
 import UploadDocumentModal from "@/components/meetings/UploadDocumentModal";
@@ -15,13 +7,13 @@ import { useMeeting } from "@/hooks/queries/useMeeting";
 import { getAvatarUrl } from "@/lib/avatar";
 import { formatDate, formatTime } from "@/lib/utils";
 import EditMeetingModal from "@/components/meetings/EditMeetingModal";
+import DeleteMeetingModal from "@/components/meetings/DeleteMeetingModal";
 
 export default function MeetingDetailsPage() {
   const { id } = useParams<{ id: string }>();
   const meetingId = Number(id);
+  const navigate = useNavigate();
   const { data: meeting, isPending, isError } = useMeeting(meetingId);
-
-  console.log(meeting?.location);
 
   if (isPending) {
     return (
@@ -131,6 +123,17 @@ export default function MeetingDetailsPage() {
           <div className="mt-8 flex flex-col gap-3">
             <UploadDocumentModal meetingId={meetingId} />
             <EditMeetingModal meeting={meeting} />
+
+            {meeting.canDelete && (
+              <div className="mt-2 border-t border-border pt-3">
+                <DeleteMeetingModal
+                  meetingId={meetingId}
+                  title={meeting.title}
+                  documentCount={meeting.documents.length}
+                  onDeleted={() => navigate("/meetings", { replace: true })}
+                />
+              </div>
+            )}
           </div>
         </article>
       </div>

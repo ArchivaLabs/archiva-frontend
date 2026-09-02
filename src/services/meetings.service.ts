@@ -58,4 +58,8 @@ export const meetingsService = {
 
     return data;
   },
+
+  async deleteMeeting(id: number): Promise<void> {
+    await api.delete(`/api/meetings/${id}`);
+  },
 };
