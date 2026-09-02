@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { ArrowRight, ShieldCheck, CloudDownload } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import dashboardPreview from "/dashboard-preview.png";

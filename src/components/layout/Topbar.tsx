@@ -1,5 +1,5 @@
 import { History, Bell, Upload, Plus, Search } from "lucide-react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router";
 import { Button } from "@/components/ui/button";
 import ThemeSwitcher from "@/components/shared/ThemeSwitcher";
 import CreateMeetingModal from "@/components/meetings/CreateMeetingModal";

@@ -1,5 +1,5 @@
 import { Bookmark, FileSpreadsheet, FileText, Users } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import FileTypeBadge from "@/components/shared/FileTypeBadge";
 import { cn } from "@/lib/utils";
 import type { SearchResult } from "@/lib/types";

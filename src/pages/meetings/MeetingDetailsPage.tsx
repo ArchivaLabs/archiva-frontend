@@ -1,5 +1,5 @@
 import { Calendar, Clock, MapPin, ChevronRight, Loader2 } from "lucide-react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router";
 import TagBadge from "@/components/shared/TagBadge";
 import MeetingDocumentsTable from "@/components/meetings/MeetingDocumentsTable";
 import UploadDocumentModal from "@/components/meetings/UploadDocumentModal";

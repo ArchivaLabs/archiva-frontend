@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Archive, Globe, AtSign } from "lucide-react";
 
 const platformLinks = ["Solutions", "Security", "Compliance", "API Docs"];

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router";
 import { ChevronLeft, ChevronRight, ChevronDown, Search } from "lucide-react";
 import SearchEmptyState from "@/components/search/SearchEmptyState";
 import SearchFiltersPanel from "@/components/search/SearchFiltersPanel";

@@ -1,5 +1,5 @@
 import { CalendarDays, FileText, Trash2 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import TagBadge from "../shared/TagBadge";
 import DeleteMeetingModal from "./DeleteMeetingModal";
 import { Button } from "@/components/ui/button";

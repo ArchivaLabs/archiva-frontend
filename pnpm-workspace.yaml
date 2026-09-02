@@ -3,3 +3,10 @@ packages: []
 allowBuilds:
   esbuild: true
   msw: false
+
+# Security bumps for build-time transitives whose parents pin a vulnerable
+# range. Scoped by version so only the affected releases are replaced.
+overrides:
+  postcss@<8.5.23: ^8.5.23
+  nanoid@<3.3.18: ^3.3.18
+  brace-expansion@<5.0.9: ^5.0.9

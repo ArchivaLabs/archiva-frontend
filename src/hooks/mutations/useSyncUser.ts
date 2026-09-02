@@ -1,7 +1,7 @@
 import { authService } from "@/services/auth.service";
 import { useAuthStore } from "@/store/authStore";
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { toast } from "sonner";
 
 export function useSyncUser() {
