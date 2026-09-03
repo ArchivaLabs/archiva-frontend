@@ -7,7 +7,6 @@ import {
   InteractionType,
   BrowserAuthError,
 } from "@azure/msal-browser";
-import type { AuthenticationResult } from "@azure/msal-browser";
 import { useSyncUser } from "@/hooks/mutations/useSyncUser";
 import { toast } from "sonner";
 
@@ -30,18 +29,7 @@ export default function AuthRedirectHandler() {
       ) {
         sessionStorage.removeItem("archiva.login_pending");
         setIsProcessingAuth(false);
-        const { account, idTokenClaims } =
-          event.payload as AuthenticationResult;
-        syncUser.mutate({
-          userId: account.localAccountId,
-          displayName: account.name ?? "",
-          email:
-            (idTokenClaims as Record<string, string> | undefined)
-              ?.preferred_username ??
-            account.username ??
-            "",
-          avatarUrl: null,
-        });
+        syncUser.mutate();
       }
 
       if (

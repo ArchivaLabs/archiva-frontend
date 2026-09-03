@@ -2,16 +2,12 @@ import api from "@/lib/api";
 import type {
   CreateOrganizationPayload,
   CreateOrganizationResponse,
-  SyncUserPayload,
   SyncUserResponse,
 } from "@/lib/types";
 
 export const authService = {
-  async syncUser(payload: SyncUserPayload): Promise<SyncUserResponse> {
-    const { data } = await api.post<SyncUserResponse>(
-      "/api/auth/sync",
-      payload
-    );
+  async syncUser(): Promise<SyncUserResponse> {
+    const { data } = await api.post<SyncUserResponse>("/api/auth/sync");
     console.log(data);
     return data;
   },
