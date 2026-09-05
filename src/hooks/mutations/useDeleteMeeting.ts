@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { meetingsService } from "@/services/meetings.service";
 import { meetingKeys } from "@/hooks/queries/useMeeting";
 import { meetingsKeys } from "@/hooks/queries/useMeetings";
+import { dashboardKeys } from "@/hooks/queries/useDashboardStats";
 
 export function useDeleteMeeting(meetingId: number, onSuccess?: () => void) {
   const queryClient = useQueryClient();
@@ -28,6 +29,8 @@ export function useDeleteMeeting(meetingId: number, onSuccess?: () => void) {
 
       queryClient.removeQueries({ queryKey: meetingKeys.detail(meetingId) });
       queryClient.invalidateQueries({ queryKey: meetingsKeys.all });
+      // Deleting a meeting cascades to its documents, so both counts move.
+      queryClient.invalidateQueries({ queryKey: dashboardKeys.all });
 
       toast.success("Meeting deleted.");
     },

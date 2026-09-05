@@ -1,6 +1,7 @@
 import { meetingsService } from "@/services/meetings.service";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { meetingsKeys } from "../queries/useMeetings";
+import { dashboardKeys } from "../queries/useDashboardStats";
 import { toast } from "sonner";
 
 export function useCreateMeeting(onSuccess?: () => void) {
@@ -10,6 +11,7 @@ export function useCreateMeeting(onSuccess?: () => void) {
     mutationFn: meetingsService.createMeeting,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: meetingsKeys.all });
+      queryClient.invalidateQueries({ queryKey: dashboardKeys.all });
       toast.success("Meeting created successfully");
       onSuccess?.();
     },

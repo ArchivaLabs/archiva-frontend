@@ -47,7 +47,8 @@ export default function MeetingCard({ meeting }: { meeting: MeetingDto }) {
           </h3>
           <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
             <CalendarDays className="size-4 shrink-0" />
-            {formatDate(meeting.meetingDate)} • {formatTime(meeting.meetingTime)}
+            {formatDate(meeting.meetingDate)} •{" "}
+            {formatTime(meeting.meetingTime)}
           </p>
         </div>
 

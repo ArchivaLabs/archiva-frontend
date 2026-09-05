@@ -211,6 +211,27 @@
   --spacing-margin-mobile: 16px;
   --spacing-container-max: 1440px;
   --spacing-stack-gap: 12px;
+
+  /* The built-in CSS easings are too soft to read as intentional at UI speeds. */
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+
+  /* `backwards` holds the from-state during animation-delay, so staggered
+     items don't flash at full opacity before their turn. */
+  --animate-rise: rise 300ms var(--ease-out-strong) backwards;
+  --animate-fade-in: fade-in 300ms var(--ease-out-strong) backwards;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
 }
 
 @layer base {
@@ -226,5 +247,12 @@
   }
   html {
     @apply font-sans;
+  }
+  /* Reduced motion means gentler, not absent: the fade still explains that
+     content arrived, but nothing travels across the screen. */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-rise {
+      animation-name: fade-in;
+    }
   }
 }

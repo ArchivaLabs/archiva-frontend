@@ -82,6 +82,12 @@ export interface CreateOrganizationResponse {
   organizationUrl: string | null;
 }
 
+export interface DashboardStats {
+  meetingCount: number;
+  documentCount: number;
+  meetingsAddedThisWeek: number;
+}
+
 export interface MeetingDto {
   id: number;
   title: string;
