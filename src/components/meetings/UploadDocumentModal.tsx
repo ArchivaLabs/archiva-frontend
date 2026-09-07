@@ -94,7 +94,7 @@ export default function UploadDocumentModal({
         )}
       </DialogTrigger>
 
-      <DialogContent className="max-h-[90vh] overflow-y-auto p-0">
+      <DialogContent className="max-h-[90dvh] overflow-y-auto p-0">
         <DialogHeader>
           <DialogTitle>Upload a document</DialogTitle>
           <DialogDescription>

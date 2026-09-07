@@ -44,7 +44,7 @@ export default function AuthLeftPanel({
         <h1 className="mt-5 mb-3 max-w-xl text-2xl leading-tight font-bold text-white sm:text-3xl lg:mt-0 lg:mb-5 lg:text-[2.6rem]">
           {headline}
         </h1>
-        <p className="mb-0 max-w-md text-sm leading-relaxed text-white/65 line-clamp-2 lg:mb-10 lg:line-clamp-none lg:text-[0.95rem]">
+        <p className="mb-0 line-clamp-2 max-w-md text-sm leading-relaxed text-white/65 lg:mb-10 lg:line-clamp-none lg:text-[0.95rem]">
           {subtext}
         </p>
 

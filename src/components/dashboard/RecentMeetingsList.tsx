@@ -7,7 +7,8 @@ const RECENT_COUNT = 5;
 
 // One grid template shared by the header and every row keeps the columns
 // aligned without a <table>, so each row can be a real anchor.
-const ROW_GRID = "grid grid-cols-[1fr_7.5rem_6rem] items-center gap-3";
+const ROW_GRID =
+  "grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-2 sm:gap-3";
 
 function RowSkeleton({ delay }: { delay: number }) {
   return (
@@ -15,7 +16,7 @@ function RowSkeleton({ delay }: { delay: number }) {
       style={{ animationDelay: `${delay}ms` }}
       className={cn(
         ROW_GRID,
-        "animate-rise border-b border-border px-5 py-3.5"
+        "animate-rise border-b border-border px-4 py-3.5 sm:px-5"
       )}
     >
       <div className="flex items-center gap-3">
@@ -48,7 +49,7 @@ export default function RecentMeetingsList() {
       <div
         className={cn(
           ROW_GRID,
-          "border-b border-border bg-dashboard-recent px-5 py-2.5 text-xs font-semibold tracking-wider text-muted-foreground uppercase"
+          "border-b border-border bg-dashboard-recent px-4 py-2.5 text-xs font-semibold tracking-wider text-muted-foreground uppercase sm:px-5"
         )}
       >
         <span>Title</span>
@@ -97,7 +98,7 @@ export default function RecentMeetingsList() {
               style={{ animationDelay: `${i * 40}ms` }}
               className={cn(
                 ROW_GRID,
-                "animate-rise border-b border-border px-5 py-3.5 transition-colors duration-150 last:border-b-0",
+                "animate-rise border-b border-border px-4 py-3.5 transition-colors duration-150 last:border-b-0 sm:px-5",
                 "hover:bg-surface-container-low active:bg-surface-container"
               )}
             >

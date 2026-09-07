@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router";
 import { ChevronLeft, ChevronRight, ChevronDown, Search } from "lucide-react";
 import SearchEmptyState from "@/components/search/SearchEmptyState";
 import SearchFiltersPanel from "@/components/search/SearchFiltersPanel";
+import SearchFiltersSheet from "@/components/search/SearchFiltersSheet";
 import SearchResultCard from "@/components/search/SearchResultCard";
 import SearchResultsSkeleton from "@/components/search/SearchResultsSkeleton";
 import { Button } from "@/components/ui/button";
@@ -48,11 +49,24 @@ export default function SearchPage() {
   }, []);
 
   const totalPages = Math.ceil(store.total / SEARCH_PAGE_SIZE);
-  const hasFilters =
-    store.filters.activeTags.length > 0 ||
-    !!store.filters.dateFrom ||
-    !!store.filters.dateTo ||
-    store.filters.department !== "All Departments";
+  const activeFilterCount =
+    store.filters.activeTags.length +
+    (store.filters.dateFrom ? 1 : 0) +
+    (store.filters.dateTo ? 1 : 0) +
+    (store.filters.department !== "All Departments" ? 1 : 0);
+  const hasFilters = activeFilterCount > 0;
+
+  const filterFieldProps = {
+    filters: store.filters,
+    availableTags,
+    availableDepartments,
+    onToggleSearchIn: store.toggleSearchIn,
+    onDateFromChange: store.setDateFrom,
+    onDateToChange: store.setDateTo,
+    onToggleTag: store.toggleTag,
+    onDepartmentChange: store.setDepartment,
+    onReset: store.resetFilters,
+  };
 
   const currentSort =
     SORT_OPTIONS.find((o) => o.value === store.sortBy) ?? SORT_OPTIONS[0];
@@ -60,36 +74,32 @@ export default function SearchPage() {
   return (
     <div className="flex h-full flex-col overflow-hidden">
       {/* Page-level search header */}
-      <div className="shrink-0 border-b border-border bg-background/80 px-6 py-4 backdrop-blur-sm">
-        <div className="relative max-w-3xl">
-          <Search className="absolute top-1/2 left-4 size-5 -translate-y-1/2 text-muted-foreground" />
-          <input
-            autoFocus
-            type="text"
-            value={store.query}
-            onChange={(e) => store.setQuery(e.target.value)}
-            placeholder="Search for documents, meeting minutes, faculty records..."
-            className="w-full rounded-xl border-none bg-surface-container-low py-4 pr-4 pl-12 text-base text-foreground shadow-sm placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:outline-none"
+      <div className="shrink-0 border-b border-border bg-background/80 px-margin-mobile py-4 backdrop-blur-sm sm:px-6">
+        <div className="flex items-center gap-3">
+          <div className="relative max-w-3xl flex-1">
+            <Search className="absolute top-1/2 left-4 size-5 -translate-y-1/2 text-muted-foreground" />
+            <input
+              autoFocus
+              type="text"
+              value={store.query}
+              onChange={(e) => store.setQuery(e.target.value)}
+              placeholder="Search for documents, meeting minutes, faculty records..."
+              className="w-full rounded-xl border-none bg-surface-container-low py-4 pr-4 pl-12 text-base text-foreground shadow-sm placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:outline-none"
+            />
+          </div>
+          <SearchFiltersSheet
+            activeCount={activeFilterCount}
+            {...filterFieldProps}
           />
         </div>
       </div>
 
       {/* Filters + Results */}
       <div className="flex flex-1 overflow-hidden">
-        <SearchFiltersPanel
-          filters={store.filters}
-          availableTags={availableTags}
-          availableDepartments={availableDepartments}
-          onToggleSearchIn={store.toggleSearchIn}
-          onDateFromChange={store.setDateFrom}
-          onDateToChange={store.setDateTo}
-          onToggleTag={store.toggleTag}
-          onDepartmentChange={store.setDepartment}
-          onReset={store.resetFilters}
-        />
+        <SearchFiltersPanel {...filterFieldProps} />
 
         {/* Results area */}
-        <section className="flex-1 overflow-y-auto p-6">
+        <section className="flex-1 overflow-y-auto p-margin-mobile sm:p-6">
           <div className="mx-auto max-w-3xl space-y-6">
             {/* Results header */}
             <div className="flex items-center justify-between">

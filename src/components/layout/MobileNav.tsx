@@ -18,7 +18,8 @@ export default function MobileNav({ open, onOpenChange }: MobileNavProps) {
   useEffect(() => {
     if (!open) return;
     const mq = window.matchMedia("(min-width: 1024px)");
-    const handler = (e: MediaQueryListEvent) => e.matches && onOpenChange(false);
+    const handler = (e: MediaQueryListEvent) =>
+      e.matches && onOpenChange(false);
     mq.addEventListener("change", handler);
     return () => mq.removeEventListener("change", handler);
   }, [open, onOpenChange]);

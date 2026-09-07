@@ -114,7 +114,7 @@ export default function EditMeetingModal({
         )}
       </DialogTrigger>
 
-      <DialogContent className="max-h-[90vh] overflow-y-auto p-0">
+      <DialogContent className="max-h-[90dvh] overflow-y-auto p-0">
         <DialogHeader>
           <DialogTitle>Edit meeting</DialogTitle>
           <DialogDescription>

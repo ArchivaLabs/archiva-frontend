@@ -43,7 +43,7 @@ export default function MeetingDetailsPage() {
   }
 
   return (
-    <section className="mx-auto flex w-full max-w-300 flex-col gap-6 p-6">
+    <section className="mx-auto flex w-full max-w-300 flex-col gap-6 p-margin-mobile sm:p-6">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-1.5 text-xs text-muted-foreground">
         <Link to="/meetings" className="transition-colors hover:text-primary">
@@ -56,7 +56,7 @@ export default function MeetingDetailsPage() {
       {/* Header bento */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         {/* Info card */}
-        <article className="flex flex-col gap-5 rounded-xl border border-border bg-card p-8 shadow-sm lg:col-span-2">
+        <article className="flex flex-col gap-5 rounded-xl border border-border bg-card p-5 shadow-sm sm:p-8 lg:col-span-2">
           {/* Tags */}
           <div className="flex flex-wrap gap-2">
             {meeting.tags.map((tag) => (
@@ -112,7 +112,7 @@ export default function MeetingDetailsPage() {
         </article>
 
         {/* Actions card */}
-        <article className="flex flex-col justify-between rounded-xl border border-border bg-card p-8 shadow-sm">
+        <article className="flex flex-col justify-between rounded-xl border border-border bg-card p-5 shadow-sm sm:p-8">
           <div>
             <h3 className="text-base font-semibold text-foreground">Actions</h3>
             <p className="mt-2 text-sm text-muted-foreground">

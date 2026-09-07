@@ -28,8 +28,8 @@ export default function MeetingsPage() {
   return (
     <section className="flex min-h-full flex-col">
       {/* Page header */}
-      <div className="px-6 pt-8 pb-4">
-        <div className="mb-8 flex items-end justify-between">
+      <div className="px-margin-mobile pt-8 pb-4 sm:px-6">
+        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <nav className="mb-2 flex items-center gap-1.5 text-xs text-muted-foreground">
               <Link
@@ -41,7 +41,7 @@ export default function MeetingsPage() {
               <ChevronRight className="size-3" />
               <span className="font-semibold text-primary">Meetings</span>
             </nav>
-            <h1 className="text-4xl font-bold tracking-tight text-foreground">
+            <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl lg:text-4xl">
               Meetings
             </h1>
           </div>
@@ -118,7 +118,7 @@ export default function MeetingsPage() {
       </div>
 
       {/* Content */}
-      <div className="px-6 pb-12">
+      <div className="px-margin-mobile pb-12 sm:px-6">
         {isPending ? (
           <div className="flex items-center justify-center py-24">
             <Loader2 className="size-6 animate-spin text-muted-foreground" />

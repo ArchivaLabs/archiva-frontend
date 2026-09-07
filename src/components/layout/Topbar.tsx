@@ -55,7 +55,11 @@ export default function Topbar({ onMenuClick }: TopbarProps) {
 
       <div className="ml-auto flex items-center gap-1.5">
         <ThemeSwitcher />
-        <Button variant="ghost" size="icon" className="hidden size-8 sm:inline-flex">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="hidden size-8 sm:inline-flex"
+        >
           <History className="size-4" />
         </Button>
         <Button variant="ghost" size="icon" className="relative size-8">

@@ -25,7 +25,7 @@ export default function DocumentViewerModal({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
 
-      <DialogContent className="flex h-[90vh] max-h-[90vh] w-full max-w-5xl flex-col gap-0 p-0">
+      <DialogContent className="flex h-[90dvh] max-h-[90dvh] w-full flex-col gap-0 p-0 sm:max-w-5xl">
         <div className="flex items-center gap-3 border-b border-border px-7 py-4 pr-14">
           <DialogTitle className="truncate text-base font-semibold">
             {document.fileName}

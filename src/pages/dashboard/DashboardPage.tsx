@@ -8,7 +8,7 @@ export default function DashboardPage() {
   const { displayName, organizationName } = useAuthStore();
 
   return (
-    <section className="flex flex-col gap-6 p-6">
+    <section className="flex flex-col gap-6 p-margin-mobile sm:p-6">
       <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
         {organizationName && (
           <>
