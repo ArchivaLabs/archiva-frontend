@@ -1,10 +1,14 @@
-import { History, Bell, Upload, Plus, Search } from "lucide-react";
+import { History, Bell, Upload, Plus, Search, Menu } from "lucide-react";
 import { useNavigate, useLocation } from "react-router";
 import { Button } from "@/components/ui/button";
 import ThemeSwitcher from "@/components/shared/ThemeSwitcher";
 import CreateMeetingModal from "@/components/meetings/CreateMeetingModal";
 
-export default function Topbar() {
+interface TopbarProps {
+  onMenuClick: () => void;
+}
+
+export default function Topbar({ onMenuClick }: TopbarProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const isSearchPage = location.pathname === "/search";
@@ -17,8 +21,18 @@ export default function Topbar() {
   };
 
   return (
-    <header className="flex shrink-0 items-center gap-3 border-b border-border bg-background px-6 py-3">
-      <div className="relative max-w-sm flex-1">
+    <header className="flex shrink-0 items-center gap-3 border-b border-border bg-background px-margin-mobile py-3 sm:px-6">
+      <Button
+        variant="ghost"
+        size="icon"
+        className="size-8 shrink-0 lg:hidden"
+        onClick={onMenuClick}
+        aria-label="Open navigation menu"
+      >
+        <Menu className="size-4" />
+      </Button>
+
+      <div className="relative hidden max-w-sm flex-1 sm:block">
         <Search className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
         <input
           className="h-9 w-full rounded-lg border border-border bg-surface-container-low pr-3 pl-9 text-sm text-foreground placeholder:text-muted-foreground focus:ring-1 focus:ring-ring focus:outline-none"
@@ -29,9 +43,19 @@ export default function Topbar() {
         />
       </div>
 
+      <Button
+        variant="ghost"
+        size="icon"
+        className="size-8 shrink-0 sm:hidden"
+        onClick={() => navigate("/search")}
+        aria-label="Search"
+      >
+        <Search className="size-4" />
+      </Button>
+
       <div className="ml-auto flex items-center gap-1.5">
         <ThemeSwitcher />
-        <Button variant="ghost" size="icon" className="size-8">
+        <Button variant="ghost" size="icon" className="hidden size-8 sm:inline-flex">
           <History className="size-4" />
         </Button>
         <Button variant="ghost" size="icon" className="relative size-8">
@@ -39,17 +63,26 @@ export default function Topbar() {
           <span className="absolute top-1.5 right-1.5 size-1.5 rounded-full bg-destructive" />
         </Button>
 
-        <div className="mx-2 h-5 w-px bg-border" />
+        <div className="mx-2 hidden h-5 w-px bg-border sm:block" />
 
-        <Button variant="outline" size="sm" className="gap-2 p-5">
+        <Button
+          variant="outline"
+          size="sm"
+          className="gap-2 max-md:size-8 max-md:p-0 md:p-5"
+          aria-label="Upload Document"
+        >
           <Upload className="size-4" />
-          Upload Document
+          <span className="hidden md:inline">Upload Document</span>
         </Button>
         <CreateMeetingModal
           trigger={
-            <Button size="sm" className="gap-2 p-5 text-white">
+            <Button
+              size="sm"
+              className="gap-2 text-white max-md:size-8 max-md:p-0 md:p-5"
+              aria-label="New Meeting"
+            >
               <Plus className="size-4" />
-              New Meeting
+              <span className="hidden md:inline">New Meeting</span>
             </Button>
           }
         />
