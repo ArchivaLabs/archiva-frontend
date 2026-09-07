@@ -1,4 +1,4 @@
-import { History, Bell, Upload, Plus, Search, Menu } from "lucide-react";
+import { Bell, Plus, Search, Menu } from "lucide-react";
 import { useNavigate, useLocation } from "react-router";
 import { Button } from "@/components/ui/button";
 import ThemeSwitcher from "@/components/shared/ThemeSwitcher";
@@ -55,13 +55,6 @@ export default function Topbar({ onMenuClick }: TopbarProps) {
 
       <div className="ml-auto flex items-center gap-1.5">
         <ThemeSwitcher />
-        <Button
-          variant="ghost"
-          size="icon"
-          className="hidden size-8 sm:inline-flex"
-        >
-          <History className="size-4" />
-        </Button>
         <Button variant="ghost" size="icon" className="relative size-8">
           <Bell className="size-4" />
           <span className="absolute top-1.5 right-1.5 size-1.5 rounded-full bg-destructive" />
@@ -69,15 +62,6 @@ export default function Topbar({ onMenuClick }: TopbarProps) {
 
         <div className="mx-2 hidden h-5 w-px bg-border sm:block" />
 
-        <Button
-          variant="outline"
-          size="sm"
-          className="gap-2 max-md:size-8 max-md:p-0 md:p-5"
-          aria-label="Upload Document"
-        >
-          <Upload className="size-4" />
-          <span className="hidden md:inline">Upload Document</span>
-        </Button>
         <CreateMeetingModal
           trigger={
             <Button
