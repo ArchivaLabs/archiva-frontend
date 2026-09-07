@@ -1,5 +1,5 @@
 import { Bell, Plus, Search, Menu } from "lucide-react";
-import { useNavigate, useLocation } from "react-router";
+import { useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 import ThemeSwitcher from "@/components/shared/ThemeSwitcher";
 import CreateMeetingModal from "@/components/meetings/CreateMeetingModal";
@@ -10,18 +10,9 @@ interface TopbarProps {
 
 export default function Topbar({ onMenuClick }: TopbarProps) {
   const navigate = useNavigate();
-  const location = useLocation();
-  const isSearchPage = location.pathname === "/search";
-
-  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      const q = (e.currentTarget.value ?? "").trim();
-      navigate(`/search${q ? `?q=${encodeURIComponent(q)}` : ""}`);
-    }
-  };
 
   return (
-    <header className="flex shrink-0 items-center gap-3 border-b border-border bg-background px-margin-mobile py-3 sm:px-6">
+    <header className="flex shrink-0 items-center gap-1.5 border-b border-border bg-background px-margin-mobile py-3 sm:px-6">
       <Button
         variant="ghost"
         size="icon"
@@ -32,21 +23,10 @@ export default function Topbar({ onMenuClick }: TopbarProps) {
         <Menu className="size-4" />
       </Button>
 
-      <div className="relative hidden max-w-sm flex-1 sm:block">
-        <Search className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
-        <input
-          className="h-9 w-full rounded-lg border border-border bg-surface-container-low pr-3 pl-9 text-sm text-foreground placeholder:text-muted-foreground focus:ring-1 focus:ring-ring focus:outline-none"
-          placeholder="Search records, meetings, or faculty..."
-          onKeyDown={handleSearchKeyDown}
-          readOnly={isSearchPage}
-          onClick={() => isSearchPage && navigate("/search")}
-        />
-      </div>
-
       <Button
         variant="ghost"
         size="icon"
-        className="size-8 shrink-0 sm:hidden"
+        className="size-8 shrink-0"
         onClick={() => navigate("/search")}
         aria-label="Search"
       >
