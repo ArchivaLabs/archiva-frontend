@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ScrollText, Shield, ArrowRight, Loader2 } from "lucide-react";
+import { ScrollText, Shield, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AuthLeftPanel from "@/components/layout/AuthLeftPanel";
 import { useMsal } from "@azure/msal-react";
@@ -88,6 +88,11 @@ export default function LoginPage() {
             {isRedirecting ? "Signing in…" : "Sign in with Microsoft"}
           </Button>
 
+          {/* Internal Access — the institutional-email / "Continue" flow is not
+              implemented. Microsoft OAuth is the only sign-in path, so this is
+              hidden to avoid presenting a dead end. Restore when the backend
+              supports email sign-in (re-add the `ArrowRight` import). */}
+          {/*
           <div className="mb-5 flex items-center gap-3">
             <div className="h-px flex-1 bg-border" />
             <span className="text-[11px] font-semibold tracking-widest text-muted-foreground uppercase">
@@ -111,6 +116,7 @@ export default function LoginPage() {
             Continue
             <ArrowRight className="size-4" />
           </Button>
+          */}
 
           <div className="text-center text-sm text-muted-foreground">
             Need technical assistance?
