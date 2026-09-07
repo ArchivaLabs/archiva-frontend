@@ -8,7 +8,7 @@ const msalConfig: Configuration = {
   auth: {
     clientId: "1274d0e7-b545-4dcc-8c4d-005dee797414",
     authority:
-      "https://login.microsoftonline.com/bbb41b2b-8961-4881-b480-2268de4887ed",
+      "https://login.microsoftonline.com/common",
     redirectUri: window.location.origin, // http://localhost:5173 in dev
     postLogoutRedirectUri: "/login",
   },
