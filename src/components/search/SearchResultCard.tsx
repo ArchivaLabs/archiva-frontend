@@ -1,4 +1,4 @@
-import { Bookmark, FileSpreadsheet, FileText, Users } from "lucide-react";
+import { FileSpreadsheet, FileText, Users } from "lucide-react";
 import { useNavigate } from "react-router";
 import FileTypeBadge from "@/components/shared/FileTypeBadge";
 import { cn } from "@/lib/utils";
@@ -84,44 +84,34 @@ export default function SearchResultCard({
       onClick={handleClick}
       className="group cursor-pointer rounded-xl border border-border bg-card p-6 transition-all hover:shadow-md hover:shadow-primary/5"
     >
-      <div className="mb-4 flex items-start justify-between">
-        <div className="flex items-center gap-4">
-          <div
-            className={cn(
-              "flex size-12 shrink-0 items-center justify-center rounded-lg",
-              bg,
-              color
-            )}
-          >
-            <Icon className="size-6" />
-          </div>
-
-          <div>
-            <div className="flex items-center gap-2">
-              <h4 className="font-semibold text-primary group-hover:underline">
-                {highlightText(result.title, query)}
-              </h4>
-              {result.type === "document" && result.fileType ? (
-                <FileTypeBadge type={result.fileType} />
-              ) : (
-                <span className="inline-flex items-center rounded bg-primary-container/20 px-2 py-1 text-[10px] font-bold text-primary">
-                  Meeting
-                </span>
-              )}
-            </div>
-            <p className="mt-0.5 text-xs text-muted-foreground">
-              {result.source} &bull; {result.date}
-            </p>
-          </div>
+      <div className="mb-4 flex items-center gap-4">
+        <div
+          className={cn(
+            "flex size-12 shrink-0 items-center justify-center rounded-lg",
+            bg,
+            color
+          )}
+        >
+          <Icon className="size-6" />
         </div>
 
-        <button
-          onClick={(e) => e.stopPropagation()}
-          className="shrink-0 text-muted-foreground transition-colors hover:text-primary"
-          aria-label="Bookmark"
-        >
-          <Bookmark className="size-4" />
-        </button>
+        <div>
+          <div className="flex items-center gap-2">
+            <h4 className="font-semibold text-primary group-hover:underline">
+              {highlightText(result.title, query)}
+            </h4>
+            {result.type === "document" && result.fileType ? (
+              <FileTypeBadge type={result.fileType} />
+            ) : (
+              <span className="inline-flex items-center rounded bg-primary-container/20 px-2 py-1 text-[10px] font-bold text-primary">
+                Meeting
+              </span>
+            )}
+          </div>
+          <p className="mt-0.5 text-xs text-muted-foreground">
+            {result.source} &bull; {result.date}
+          </p>
+        </div>
       </div>
 
       <div className="pl-16">
