@@ -34,9 +34,9 @@ function SkeletonLine({
 
 export default function ProblemSection() {
   return (
-    <section className="bg-surface-container-low px-6 py-20">
+    <section className="bg-surface-container-low px-margin-mobile py-14 sm:px-6 sm:py-20">
       <div className="mx-auto max-w-5xl">
-        <div className="grid items-center gap-12 lg:grid-cols-2">
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
           <div>
             <h2 className="mb-4 text-3xl font-bold tracking-tight text-foreground">
               Lost in a sea of documents?
@@ -58,7 +58,7 @@ export default function ProblemSection() {
             </ul>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <MockCard>
               <Folder className="mb-3 size-5 text-muted-foreground" />
               <div className="space-y-2">

@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import {
   Sheet,
   SheetContent,
@@ -6,6 +5,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import SidebarNav from "@/components/layout/SidebarNav";
+import { useCloseOnBreakpoint } from "@/hooks/useCloseOnBreakpoint";
 
 interface MobileNavProps {
   open: boolean;
@@ -15,14 +15,7 @@ interface MobileNavProps {
 export default function MobileNav({ open, onOpenChange }: MobileNavProps) {
   // The desktop sidebar takes over at `lg`; close the drawer if the viewport
   // grows past that while it is open, so it can't sit on top of the sidebar.
-  useEffect(() => {
-    if (!open) return;
-    const mq = window.matchMedia("(min-width: 1024px)");
-    const handler = (e: MediaQueryListEvent) =>
-      e.matches && onOpenChange(false);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, [open, onOpenChange]);
+  useCloseOnBreakpoint(open, 1024, () => onOpenChange(false));
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>

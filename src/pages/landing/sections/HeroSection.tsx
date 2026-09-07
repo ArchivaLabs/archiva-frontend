@@ -5,7 +5,7 @@ import dashboardPreview from "/dashboard-preview.png";
 
 export default function HeroSection() {
   return (
-    <section className="bg-background px-6 py-20">
+    <section className="bg-background px-margin-mobile py-14 sm:px-6 sm:py-20">
       <div className="mx-auto max-w-4xl text-center">
         <div className="mb-5 inline-flex items-center gap-1.5 rounded-full border border-border bg-surface-container-low px-3 py-1">
           <ShieldCheck className="size-3.5 text-primary" />
@@ -14,11 +14,11 @@ export default function HeroSection() {
           </span>
         </div>
 
-        <h1 className="mb-5 text-6xl font-bold tracking-tight text-foreground lg:text-7xl">
+        <h1 className="mb-5 text-5xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl">
           Archiva
         </h1>
 
-        <p className="mx-auto mb-10 max-w-2xl text-lg text-muted-foreground">
+        <p className="mx-auto mb-10 max-w-2xl text-base text-muted-foreground sm:text-lg">
           Your organisation&apos;s meeting memory. Seamlessly capture, index,
           and retrieve institutional knowledge from every senate, faculty, and
           committee session.
@@ -37,7 +37,7 @@ export default function HeroSection() {
           </Button>
         </div>
 
-        <div className="mt-16 overflow-hidden rounded-2xl bg-primary/10 p-3 shadow-xl ring-1 ring-border">
+        <div className="mt-12 overflow-hidden rounded-2xl bg-primary/10 p-2 shadow-xl ring-1 ring-border sm:mt-16 sm:p-3">
           <div className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
             <div className="flex items-center gap-1.5 border-b border-border bg-surface-container-low px-4 py-2.5">
               <span className="size-2.5 rounded-full bg-destructive/60" />

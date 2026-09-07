@@ -30,7 +30,7 @@ const features: Feature[] = [
 
 export default function FeaturesSection() {
   return (
-    <section className="bg-background px-6 py-20">
+    <section className="bg-background px-margin-mobile py-14 sm:px-6 sm:py-20">
       <div className="mx-auto max-w-5xl">
         <div className="mb-12 text-center">
           <p className="mb-2 text-sm font-semibold text-primary">

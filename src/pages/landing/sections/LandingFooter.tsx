@@ -11,7 +11,7 @@ const companyLinks = [
 
 export default function LandingFooter() {
   return (
-    <footer className="border-t border-border bg-background px-6 py-12">
+    <footer className="border-t border-border bg-background px-margin-mobile py-12 sm:px-6">
       <div className="mx-auto max-w-5xl">
         <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
           <div className="max-w-xs">
@@ -33,7 +33,7 @@ export default function LandingFooter() {
             </div>
           </div>
 
-          <div className="flex gap-12">
+          <div className="flex gap-8 sm:gap-12">
             <div>
               <p className="mb-3 text-xs font-semibold tracking-wider text-foreground uppercase">
                 Platform

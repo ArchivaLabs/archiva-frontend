@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button";
 
 export default function CtaSection() {
   return (
-    <section className="px-6 py-20">
-      <div className="mx-auto max-w-3xl overflow-hidden rounded-2xl bg-primary px-8 py-16 text-center shadow-lg dark:bg-inverse-primary">
+    <section className="px-margin-mobile py-14 sm:px-6 sm:py-20">
+      <div className="mx-auto max-w-3xl overflow-hidden rounded-2xl bg-primary px-6 py-12 text-center shadow-lg sm:px-8 sm:py-16 dark:bg-inverse-primary">
         <h2 className="mb-4 text-3xl font-bold tracking-tight text-white">
           Ready to digitize your institution?
         </h2>
