@@ -50,7 +50,7 @@ export default function MeetingDocumentsTable({
                   <Icon className="mt-0.5 size-5 shrink-0 text-muted-foreground" />
 
                   <div className="flex min-w-0 flex-1 flex-col gap-2">
-                    <span className="text-sm font-medium break-words text-foreground">
+                    <span className="text-[13px] font-medium break-words text-foreground">
                       {doc.fileName}
                     </span>
                     <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
