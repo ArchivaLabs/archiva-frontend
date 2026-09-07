@@ -46,40 +46,44 @@ export default function MeetingDocumentsTable({
                 doc.fileType.toUpperCase() as keyof typeof FILE_ICON;
               const Icon = FILE_ICON[fileType] ?? FILE_ICON["PDF"];
               return (
-                <div key={doc.id} className="flex flex-col gap-2.5 px-5 py-4">
-                  <div className="flex items-start gap-3">
-                    <Icon className="mt-0.5 size-5 shrink-0 text-muted-foreground" />
-                    <span className="min-w-0 flex-1 text-sm font-medium break-words text-foreground">
+                <div key={doc.id} className="flex items-start gap-3 px-5 py-4">
+                  <Icon className="mt-0.5 size-5 shrink-0 text-muted-foreground" />
+
+                  <div className="flex min-w-0 flex-1 flex-col gap-2">
+                    <span className="text-sm font-medium break-words text-foreground">
                       {doc.fileName}
                     </span>
-                    <div className="flex shrink-0 items-center gap-1">
-                      <DocumentViewerModal
-                        document={doc}
-                        trigger={
-                          <button
-                            type="button"
-                            className="rounded p-1 text-primary transition-colors hover:bg-primary/10"
-                            title="Preview"
-                          >
-                            <Eye className="size-4" />
-                          </button>
-                        }
-                      />
-                      <a
-                        href={doc.blobUrl}
-                        download={doc.fileName}
-                        className="rounded p-1 text-muted-foreground transition-colors hover:bg-surface-container-high"
-                        title="Download"
-                      >
-                        <Download className="size-4" />
-                      </a>
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+                      <FileTypeBadge type={fileType} />
+                      <span>{formatFileSize(doc.fileSizeInBytes)}</span>
+                      <span>{formatDate(doc.created)}</span>
                     </div>
+                    <span className="truncate text-xs text-muted-foreground">
+                      Uploaded by {doc.uploadedBy ?? "Unknown"}
+                    </span>
                   </div>
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 pl-8 text-xs text-muted-foreground">
-                    <FileTypeBadge type={fileType} />
-                    <span>{formatFileSize(doc.fileSizeInBytes)}</span>
-                    <span>{formatDate(doc.created)}</span>
-                    <span>{doc.uploadedBy ?? "Unknown"}</span>
+
+                  <div className="flex shrink-0 items-center gap-1">
+                    <DocumentViewerModal
+                      document={doc}
+                      trigger={
+                        <button
+                          type="button"
+                          className="rounded p-1 text-primary transition-colors hover:bg-primary/10"
+                          title="Preview"
+                        >
+                          <Eye className="size-4" />
+                        </button>
+                      }
+                    />
+                    <a
+                      href={doc.blobUrl}
+                      download={doc.fileName}
+                      className="rounded p-1 text-muted-foreground transition-colors hover:bg-surface-container-high"
+                      title="Download"
+                    >
+                      <Download className="size-4" />
+                    </a>
                   </div>
                 </div>
               );

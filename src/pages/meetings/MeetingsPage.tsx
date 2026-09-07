@@ -167,7 +167,7 @@ export default function MeetingsPage() {
 
             {/* Pagination */}
             {data && data.totalPages > 1 && (
-              <div className="mt-8 flex items-center justify-between">
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <p className="text-xs text-muted-foreground">
                   Showing{" "}
                   <span className="font-medium text-foreground">
@@ -180,7 +180,7 @@ export default function MeetingsPage() {
                   </span>{" "}
                   meetings
                 </p>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center justify-between gap-2 sm:justify-end">
                   <Button
                     variant="outline"
                     size="sm"
@@ -191,7 +191,7 @@ export default function MeetingsPage() {
                     <ChevronLeft className="size-4" />
                     Previous
                   </Button>
-                  <span className="text-xs text-muted-foreground">
+                  <span className="text-xs whitespace-nowrap text-muted-foreground">
                     Page {data.page} of {data.totalPages}
                   </span>
                   <Button
