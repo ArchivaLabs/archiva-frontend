@@ -34,7 +34,7 @@ export default function OnboardingPage() {
   }
 
   return (
-    <section className="flex h-screen overflow-hidden">
+    <section className="flex min-h-dvh flex-col overflow-y-auto lg:h-dvh lg:flex-row lg:overflow-hidden">
       <AuthLeftPanel
         badge="One-time setup"
         headline="Build your organisation's knowledge base."
@@ -48,7 +48,7 @@ export default function OnboardingPage() {
           </>
         }
       >
-        <div className="grid max-w-xl grid-cols-3 gap-3">
+        <div className="grid max-w-xl grid-cols-1 gap-3 sm:grid-cols-3">
           {steps.map(({ step, label }) => (
             <div
               key={step}
@@ -64,9 +64,9 @@ export default function OnboardingPage() {
       </AuthLeftPanel>
 
       {/* ── Right panel ───────────────────────────────── */}
-      <article className="flex w-[40%] flex-col justify-center gap-4 overflow-y-auto bg-surface-container-low px-10 py-10">
+      <article className="flex w-full flex-1 flex-col justify-start gap-4 bg-surface-container-low px-margin-mobile py-8 sm:px-gutter lg:w-[45%] lg:justify-center lg:overflow-y-auto lg:px-10 lg:py-10">
         {/* Main form card */}
-        <div className="rounded-2xl border border-border bg-card px-8 py-8 shadow-sm">
+        <div className="mx-auto w-full max-w-md rounded-2xl border border-border bg-card px-5 py-7 shadow-sm sm:px-8 sm:py-8 lg:max-w-none">
           {/* Progress bar */}
           <div className="mb-7 h-1.5 w-full overflow-hidden rounded-full bg-surface-container">
             <div className="h-full w-full rounded-full bg-primary" />
@@ -178,7 +178,7 @@ export default function OnboardingPage() {
         </div>
 
         {/* Info card */}
-        <div className="rounded-2xl border border-border bg-card px-6 py-4 shadow-sm">
+        <div className="mx-auto hidden w-full max-w-md rounded-2xl border border-border bg-card px-6 py-4 shadow-sm sm:block lg:max-w-none">
           <p className="text-center text-xs leading-relaxed text-muted-foreground">
             After creating your workspace, you can invite team members, upload
             meeting records, and configure your organisation from the Admin

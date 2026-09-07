@@ -34,7 +34,7 @@ export default function LoginPage() {
   if (isRedirecting) return <MicrosoftRedirectLoader />;
 
   return (
-    <section className="flex h-screen overflow-hidden">
+    <section className="flex min-h-dvh flex-col overflow-y-auto lg:h-dvh lg:flex-row lg:overflow-hidden">
       <AuthLeftPanel
         headline="Your organisation's meeting memory."
         subtext="The quiet infrastructure for university administration. Securely manage records, Senate Committee minutes, and institutional knowledge with academic precision and modern speed."
@@ -54,7 +54,7 @@ export default function LoginPage() {
               className="rounded-lg border border-white/20 bg-white/10 p-4"
             >
               <Icon className="mb-3 size-4 text-white/80" />
-              <p className="mb-0.5 text-[10px] font-semibold tracking-wider text-white/50 uppercase">
+              <p className="mb-0.5 text-[11px] font-semibold tracking-wider text-white/50 uppercase">
                 {label}
               </p>
               <p className="text-sm font-semibold text-white">{title}</p>
@@ -64,9 +64,9 @@ export default function LoginPage() {
       </AuthLeftPanel>
 
       {/* ── Right panel ───────────────────────────────── */}
-      <article className="flex w-[40%] flex-col justify-center gap-4 overflow-y-auto bg-surface-container-low px-10 py-10">
+      <article className="flex w-full flex-1 flex-col justify-start gap-4 bg-surface-container-low px-margin-mobile py-8 sm:px-gutter lg:w-[45%] lg:justify-center lg:overflow-y-auto lg:px-10 lg:py-10">
         {/* Form card */}
-        <div className="rounded-2xl border border-border bg-card px-8 py-8 shadow-sm">
+        <div className="mx-auto w-full max-w-md rounded-2xl border border-border bg-card px-5 py-7 shadow-sm sm:px-8 sm:py-8 lg:max-w-none">
           <div className="mb-7 text-center">
             <h2 className="text-2xl font-bold text-foreground">Archiva</h2>
             <p className="mt-1.5 text-sm text-muted-foreground">
@@ -90,7 +90,7 @@ export default function LoginPage() {
 
           <div className="mb-5 flex items-center gap-3">
             <div className="h-px flex-1 bg-border" />
-            <span className="text-[10px] font-semibold tracking-widest text-muted-foreground uppercase">
+            <span className="text-[11px] font-semibold tracking-widest text-muted-foreground uppercase">
               Internal Access
             </span>
             <div className="h-px flex-1 bg-border" />
@@ -132,11 +132,11 @@ export default function LoginPage() {
         </div>
 
         {/* Compliance card */}
-        <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+        <div className="mx-auto hidden w-full max-w-md overflow-hidden rounded-2xl border border-border bg-card shadow-sm sm:block lg:max-w-none">
           <img
             src="/login.png"
             alt="University campus"
-            className="h-30 w-full object-cover"
+            className="h-24 w-full object-cover sm:h-30"
           />
           <div className="px-6 py-4">
             <p className="text-center text-xs leading-relaxed text-muted-foreground">
