@@ -11,6 +11,8 @@ import MeetingDetailsPage from "@/pages/meetings/MeetingDetailsPage";
 import DocumentPreviewPage from "@/pages/documents/DocumentPreviewPage";
 import SearchPage from "@/pages/search/SearchPage";
 import UsersPage from "@/pages/users/UsersPage";
+import SettingsPage from "@/pages/settings/SettingsPage";
+import HelpPage from "@/pages/help/HelpPage";
 import OnboardingPage from "@/pages/onboarding/OnboardingPage";
 import NotFoundPage from "@/pages/not-found/NotFoundPage";
 
@@ -65,6 +67,14 @@ const router = createBrowserRouter([
               {
                 path: "/users",
                 element: <UsersPage />,
+              },
+              {
+                path: "/settings",
+                element: <SettingsPage />,
+              },
+              {
+                path: "/help",
+                element: <HelpPage />,
               },
             ],
           },
