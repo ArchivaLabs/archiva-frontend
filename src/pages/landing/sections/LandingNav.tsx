@@ -11,9 +11,12 @@ import {
 import ThemeSwitcher from "@/components/shared/ThemeSwitcher";
 import Logo from "@/components/shared/Logo";
 import { useCloseOnBreakpoint } from "@/hooks/useCloseOnBreakpoint";
+import { useAuth } from "@/hooks/useAuth";
+import LandingUserMenu from "./LandingUserMenu";
 
 export default function LandingNav() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { isAuthenticated } = useAuth();
 
   // Inline actions return at `sm`; close the drawer if it's open past that.
   useCloseOnBreakpoint(menuOpen, 640, () => setMenuOpen(false));
@@ -26,12 +29,18 @@ export default function LandingNav() {
         {/* Desktop actions */}
         <div className="hidden items-center gap-2 sm:flex">
           <ThemeSwitcher />
-          <Button variant="ghost" size="sm" asChild>
-            <Link to="/login">Sign In</Link>
-          </Button>
-          <Button size="sm" asChild className="text-white">
-            <Link to="/login">Get Started</Link>
-          </Button>
+          {isAuthenticated ? (
+            <LandingUserMenu layout="bar" />
+          ) : (
+            <>
+              <Button variant="ghost" size="sm" asChild>
+                <Link to="/login">Sign In</Link>
+              </Button>
+              <Button size="sm" asChild className="text-white">
+                <Link to="/login">Get Started</Link>
+              </Button>
+            </>
+          )}
         </div>
 
         {/* Mobile actions */}
@@ -53,24 +62,31 @@ export default function LandingNav() {
         <SheetContent side="right" className="w-72 max-w-[80vw] gap-4 p-6">
           <SheetTitle className="sr-only">Menu</SheetTitle>
           <SheetDescription className="sr-only">
-            Sign in or create an Archiva workspace
+            Archiva navigation
           </SheetDescription>
-          <div className="mt-8 flex flex-col gap-3">
-            <Button
-              variant="outline"
-              asChild
-              onClick={() => setMenuOpen(false)}
-            >
-              <Link to="/login">Sign In</Link>
-            </Button>
-            <Button
-              asChild
-              className="text-white"
-              onClick={() => setMenuOpen(false)}
-            >
-              <Link to="/login">Get Started</Link>
-            </Button>
-          </div>
+          {isAuthenticated ? (
+            <LandingUserMenu
+              layout="drawer"
+              onNavigate={() => setMenuOpen(false)}
+            />
+          ) : (
+            <div className="mt-8 flex flex-col gap-3">
+              <Button
+                variant="outline"
+                asChild
+                onClick={() => setMenuOpen(false)}
+              >
+                <Link to="/login">Sign In</Link>
+              </Button>
+              <Button
+                asChild
+                className="text-white"
+                onClick={() => setMenuOpen(false)}
+              >
+                <Link to="/login">Get Started</Link>
+              </Button>
+            </div>
+          )}
         </SheetContent>
       </Sheet>
     </header>

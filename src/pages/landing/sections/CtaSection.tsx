@@ -1,7 +1,10 @@
 import { Link } from "react-router";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function CtaSection() {
+  const { isAuthenticated } = useAuth();
+
   return (
     <section className="px-margin-mobile py-14 sm:px-6 sm:py-20">
       <div className="mx-auto max-w-3xl overflow-hidden rounded-2xl bg-primary px-6 py-12 text-center shadow-lg sm:px-8 sm:py-16 dark:bg-inverse-primary">
@@ -19,7 +22,11 @@ export default function CtaSection() {
             className="h-11 bg-white p-6 text-base text-primary hover:bg-white/90"
             asChild
           >
-            <Link to="/login">Get Started with Microsoft</Link>
+            {isAuthenticated ? (
+              <Link to="/dashboard">Go to Dashboard</Link>
+            ) : (
+              <Link to="/login">Get Started with Microsoft</Link>
+            )}
           </Button>
           <Button
             variant="outline"

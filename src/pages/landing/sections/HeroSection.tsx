@@ -1,9 +1,12 @@
 import { Link } from "react-router";
 import { ArrowRight, ShieldCheck, CloudDownload } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
 import dashboardPreview from "/dashboard-preview.png";
 
 export default function HeroSection() {
+  const { isAuthenticated } = useAuth();
+
   return (
     <section className="bg-background px-margin-mobile py-14 sm:px-6 sm:py-20">
       <div className="mx-auto max-w-4xl text-center">
@@ -26,11 +29,18 @@ export default function HeroSection() {
 
         <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
           <Button className="h-11 gap-4 p-6 text-base" asChild>
-            <Link to="/login">
-              <CloudDownload className="size-4" />
-              Get Started with Microsoft
-              <ArrowRight className="size-4" />
-            </Link>
+            {isAuthenticated ? (
+              <Link to="/dashboard">
+                Go to Dashboard
+                <ArrowRight className="size-4" />
+              </Link>
+            ) : (
+              <Link to="/login">
+                <CloudDownload className="size-4" />
+                Get Started with Microsoft
+                <ArrowRight className="size-4" />
+              </Link>
+            )}
           </Button>
           <Button variant="outline" className="h-11 p-6 text-base" asChild>
             <Link to="/login">Request Demo</Link>
