@@ -25,17 +25,69 @@ export function isTransientError(error: unknown): boolean {
 }
 
 /**
- * Exponential backoff: 1s, 2s, 4s, 8s. Four retries span about 15 seconds,
- * which comfortably covers a container cold start.
+ * Exponential backoff, capped at 8s: 1s, 2s, 4s, 8s, 8s.
+ *
+ * Sized against a measured cold start rather than a guess — a real one on
+ * 2026-09-10 took three failed attempts (7s of backoff) before succeeding.
  */
 export function retryDelay(attemptIndex: number): number {
   return Math.min(1000 * 2 ** attemptIndex, 8000);
 }
 
 /**
+ * Total attempts allowed: one initial request plus five retries.
+ *
+ * Counted as attempts rather than retries because that is what React Query's
+ * `failureCount` measures — it is the number of failures so far, so comparing it
+ * against a retry count silently gives one fewer retry than intended.
+ *
+ * Six attempts means backoffs of 1+2+4+8+8 = 23s, inside the 30s deadline below.
+ */
+export const MAX_ATTEMPTS = 6;
+
+/**
+ * Stop retrying once this much time has passed since the first failure, however
+ * few retries have been used. Past roughly half a minute a user assumes the page
+ * is broken and reloads anyway, so continuing to retry only delays the error
+ * they need to see.
+ */
+export const RETRY_DEADLINE_MS = 30_000;
+
+/**
  * Retry predicate for idempotent requests. Not safe for mutations that create
  * resources — a retry after a lost response would duplicate them.
+ *
+ * Bounded by retry count only. For a deadline as well, use `createDeadlineRetry`.
  */
 export function retryTransient(failureCount: number, error: unknown): boolean {
-  return failureCount < 4 && isTransientError(error);
+  return failureCount < MAX_ATTEMPTS && isTransientError(error);
+}
+
+/**
+ * Builds a retry predicate bounded by both `MAX_ATTEMPTS` and a wall-clock
+ * deadline measured from the first failure.
+ *
+ * Returns a fresh closure holding its own timer, so each caller must create its
+ * own — a single shared instance would interleave timers across concurrent
+ * requests and cut retries short for whichever started later.
+ */
+export function createDeadlineRetry(deadlineMs: number = RETRY_DEADLINE_MS) {
+  let deadline: number | null = null;
+
+  return (failureCount: number, error: unknown): boolean => {
+    if (!isTransientError(error)) {
+      deadline = null;
+      return false;
+    }
+
+    // React Query counts the first failure as 1, which is the signal to start
+    // (or restart) the clock for this run.
+    if (failureCount === 1) deadline = Date.now() + deadlineMs;
+
+    const withinDeadline = deadline !== null && Date.now() < deadline;
+    const keepGoing = failureCount < MAX_ATTEMPTS && withinDeadline;
+
+    if (!keepGoing) deadline = null;
+    return keepGoing;
+  };
 }
