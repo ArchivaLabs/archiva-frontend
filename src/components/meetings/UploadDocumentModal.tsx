@@ -1,4 +1,4 @@
-import { useState, useRef, type ReactNode } from "react";
+import { useId, useState, type ReactNode } from "react";
 import { Upload, X, FileText, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -36,7 +36,7 @@ export default function UploadDocumentModal({
   const [description, setDescription] = useState("");
   const [dragOver, setDragOver] = useState(false);
   const [fileError, setFileError] = useState<string | null>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const fileInputId = useId();
 
   const upload = useUploadDocument(meetingId, () => handleOpenChange(false));
 
@@ -71,7 +71,7 @@ export default function UploadDocumentModal({
     if (f) handleFileSelect(f);
   }
 
-  function handleDrop(e: React.DragEvent<HTMLDivElement>) {
+  function handleDrop(e: React.DragEvent<HTMLElement>) {
     e.preventDefault();
     setDragOver(false);
     const f = e.dataTransfer.files?.[0];
@@ -106,53 +106,48 @@ export default function UploadDocumentModal({
 
         <div className="flex flex-col gap-5 px-7 py-6">
           {/* Drop zone */}
-          <div
-            onDragOver={(e) => {
-              e.preventDefault();
-              setDragOver(true);
-            }}
-            onDragLeave={() => setDragOver(false)}
-            onDrop={handleDrop}
-            onClick={() => inputRef.current?.click()}
-            className={cn(
-              "flex cursor-pointer flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed px-6 py-10 transition-colors",
-              dragOver
-                ? "border-primary bg-primary/5"
-                : "border-border bg-surface-container-low hover:border-primary/50 hover:bg-surface-container"
-            )}
-          >
-            <input
-              ref={inputRef}
-              type="file"
-              accept={ALLOWED_EXTENSIONS.join(",")}
-              className="hidden"
-              onChange={handleInputChange}
-            />
-
-            {file ? (
-              <div className="flex flex-col items-center gap-2 text-center">
-                <FileText className="size-8 text-primary" />
-                <p className="text-sm font-medium text-foreground">
-                  {file.name}
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  {formatFileSize(file.size)}
-                </p>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setFile(null);
-                    setFileError(null);
-                    if (inputRef.current) inputRef.current.value = "";
-                  }}
-                  className="mt-1 flex items-center gap-1 text-xs text-destructive hover:underline"
-                >
-                  <X className="size-3" />
-                  Remove
-                </button>
-              </div>
-            ) : (
+          {file ? (
+            <div className="flex flex-col items-center gap-2 rounded-xl border-2 border-dashed border-border bg-surface-container-low px-6 py-10 text-center">
+              <FileText className="size-8 text-primary" />
+              <p className="text-sm font-medium text-foreground">{file.name}</p>
+              <p className="text-xs text-muted-foreground">
+                {formatFileSize(file.size)}
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  setFile(null);
+                  setFileError(null);
+                }}
+                className="mt-1 flex items-center gap-1 text-xs text-destructive hover:underline"
+              >
+                <X className="size-3" />
+                Remove
+              </button>
+            </div>
+          ) : (
+            <label
+              htmlFor={fileInputId}
+              onDragOver={(e) => {
+                e.preventDefault();
+                setDragOver(true);
+              }}
+              onDragLeave={() => setDragOver(false)}
+              onDrop={handleDrop}
+              className={cn(
+                "flex cursor-pointer flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed px-6 py-10 transition-colors",
+                dragOver
+                  ? "border-primary bg-primary/5"
+                  : "border-border bg-surface-container-low hover:border-primary/50 hover:bg-surface-container"
+              )}
+            >
+              <input
+                id={fileInputId}
+                type="file"
+                accept={ALLOWED_EXTENSIONS.join(",")}
+                className="sr-only"
+                onChange={handleInputChange}
+              />
               <div className="flex flex-col items-center gap-2 text-center">
                 <Upload className="size-8 text-muted-foreground" />
                 <p className="text-sm font-medium text-foreground">
@@ -163,8 +158,8 @@ export default function UploadDocumentModal({
                   PDF, DOCX, XLSX, TXT — up to {MAX_SIZE_MB} MB
                 </p>
               </div>
-            )}
-          </div>
+            </label>
+          )}
 
           {fileError && <p className="text-sm text-destructive">{fileError}</p>}
 

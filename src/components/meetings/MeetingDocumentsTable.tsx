@@ -6,6 +6,7 @@ import FileTypeBadge from "../shared/FileTypeBadge";
 import { cn, formatDate, formatFileSize } from "@/lib/utils";
 import { getAvatarUrl } from "@/lib/avatar";
 import DocumentViewerModal from "@/components/documents/DocumentViewerModal";
+import { Link } from "react-router";
 
 export default function MeetingDocumentsTable({
   documents,
@@ -50,9 +51,12 @@ export default function MeetingDocumentsTable({
                   <Icon className="mt-0.5 size-5 shrink-0 text-muted-foreground" />
 
                   <div className="flex min-w-0 flex-1 flex-col gap-2">
-                    <span className="text-[10.5px] font-medium break-words text-foreground">
+                    <Link
+                      to={`/documents/${doc.id}`}
+                      className="text-[10.5px] font-medium break-words text-foreground hover:text-primary hover:underline"
+                    >
                       {doc.fileName}
-                    </span>
+                    </Link>
                     <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
                       <FileTypeBadge type={fileType} />
                       <span>{formatFileSize(doc.fileSizeInBytes)}</span>
@@ -127,9 +131,14 @@ export default function MeetingDocumentsTable({
                       <td className="px-8 py-5">
                         <div className="flex items-center gap-3">
                           <Icon className="size-5 shrink-0 text-muted-foreground" />
-                          <span className="text-sm font-medium text-foreground">
-                            {doc.fileName}
-                          </span>
+                          <div className="flex min-w-0 flex-col gap-1.5">
+                            <Link
+                              to={`/documents/${doc.id}`}
+                              className="text-sm font-medium break-words text-foreground hover:text-primary hover:underline"
+                            >
+                              {doc.fileName}
+                            </Link>
+                          </div>
                         </div>
                       </td>
                       <td className="px-4 py-5">

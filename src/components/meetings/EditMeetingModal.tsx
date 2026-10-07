@@ -1,4 +1,4 @@
-import { useState, useEffect, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import {
   AlignLeft,
   CalendarDays,
@@ -49,9 +49,8 @@ export default function EditMeetingModal({
 
   const updateMeeting = useUpdateMeeting(meeting.id, () => setOpen(false));
 
-  // Pre-fill the form whenever the modal opens with the latest meeting data
-  useEffect(() => {
-    if (open) {
+  function handleOpenChange(next: boolean) {
+    if (next) {
       setForm({
         title: meeting.title,
         // meetingDate is "YYYY-MM-DDTHH:mm:ss" — take only the date part
@@ -65,7 +64,8 @@ export default function EditMeetingModal({
       setTagInput("");
       setTouched(false);
     }
-  }, [open, meeting]);
+    setOpen(next);
+  }
 
   const isValid = form.title.trim() && form.date && form.time;
 
@@ -104,7 +104,7 @@ export default function EditMeetingModal({
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         {trigger ?? (
           <Button variant="outline" className="w-full gap-2">

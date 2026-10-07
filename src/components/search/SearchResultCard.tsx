@@ -1,7 +1,7 @@
 import { FileSpreadsheet, FileText, Users } from "lucide-react";
-import { useNavigate } from "react-router";
+import { Link } from "react-router";
 import FileTypeBadge from "@/components/shared/FileTypeBadge";
-import { cn } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils";
 import type { SearchResult } from "@/lib/types";
 
 function highlightText(text: string, query: string) {
@@ -66,23 +66,19 @@ export default function SearchResultCard({
   result,
   query,
 }: SearchResultCardProps) {
-  const navigate = useNavigate();
   const iconKey =
     result.type === "meeting" ? "meeting" : (result.fileType ?? "PDF");
   const { bg, color, icon: Icon } = iconConfig[iconKey] ?? iconConfig["PDF"];
 
-  const handleClick = () => {
-    if (result.type === "document") {
-      navigate(`/documents/${result.id}`);
-    } else {
-      navigate(`/meetings/${result.meetingId ?? result.id}`);
-    }
-  };
+  const destination =
+    result.type === "document"
+      ? `/documents/${result.id}`
+      : `/meetings/${result.meetingId ?? result.id}`;
 
   return (
-    <div
-      onClick={handleClick}
-      className="group cursor-pointer rounded-xl border border-border bg-card p-6 transition-all hover:shadow-md hover:shadow-primary/5"
+    <Link
+      to={destination}
+      className="group block rounded-xl border border-border bg-card p-6 transition-shadow hover:shadow-md hover:shadow-primary/5"
     >
       <div className="mb-4 flex items-center gap-4">
         <div
@@ -109,7 +105,7 @@ export default function SearchResultCard({
             )}
           </div>
           <p className="mt-0.5 text-xs text-muted-foreground">
-            {result.source} &bull; {result.date}
+            {result.source} &bull; {formatDate(result.date)}
           </p>
         </div>
       </div>
@@ -132,6 +128,6 @@ export default function SearchResultCard({
           </div>
         )}
       </div>
-    </div>
+    </Link>
   );
 }

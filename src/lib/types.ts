@@ -24,12 +24,12 @@ export interface SearchFilters {
   searchIn: {
     titles: boolean;
     content: boolean;
-    meetingMinutes: boolean;
+    documents: boolean;
+    meetings: boolean;
   };
   dateFrom: string;
   dateTo: string;
   activeTags: string[];
-  department: string;
 }
 
 export interface SearchResponse {
@@ -38,6 +38,19 @@ export interface SearchResponse {
 }
 
 export type FileType = "PDF" | "DOCX" | "XLSX" | "TXT";
+
+export type DocumentAnalysisStatus =
+  | "Pending"
+  | "Processing"
+  | "Extracted"
+  | "DeferredMonthlyUnitLimit"
+  | "DeferredDocumentUnitLimit"
+  | "SummaryDeferredMonthlyLimit"
+  | "SummaryDeferredDocumentLimit"
+  | "SummaryDeferredModelUnavailable"
+  | "Completed"
+  | "ExtractionFailed"
+  | "SummaryFailed";
 
 export interface MeetingDocument {
   id: string;
@@ -155,6 +168,23 @@ export interface DocumentDto {
   description: string | null;
   uploadedBy: string | null;
   created: string;
+  analysisStatus?: DocumentAnalysisStatus;
+  analysisErrorCode?: string | null;
+  summary?: string | null;
+  analysisCompletedAt?: string | null;
+}
+
+export interface DocumentDetailDto extends DocumentDto {
+  meetingId: number;
+  meetingTitle: string;
+  meetingDate: string;
+  tags: string[];
+  analysisStatus: DocumentAnalysisStatus;
+  analysisErrorCode: string | null;
+  summary: string | null;
+  billableUnitCount: number;
+  summaryInputCharacters: number;
+  analysisCompletedAt: string | null;
 }
 
 export interface MeetingDetailDto {

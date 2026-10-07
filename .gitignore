@@ -36,11 +36,13 @@ dist-ssr
 
 
 CLAUDE.md
+AGENTS.md
 CLAUDE-V1.md
 ASSUMPTIONS.md
 plan.md
 tasks/
 .playwright-mcp/
 .claude/
+.codex/
 
 council/

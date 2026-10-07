@@ -46,7 +46,7 @@ export default function SearchFiltersSheet({
             Filters
           </SheetTitle>
           <SheetDescription className="sr-only">
-            Narrow search results by scope, date, tags, and department
+            Narrow search results by record type, date, and tags
           </SheetDescription>
         </SheetHeader>
         <div className="mt-6">

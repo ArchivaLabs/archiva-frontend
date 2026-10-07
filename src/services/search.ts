@@ -1,12 +1,29 @@
-// Mock implementation — replace body of each function with real API calls once backend is ready.
-// Shape is stable: callers won't need to change.
-import {
-  SEARCH_FILTER_DEPARTMENTS,
-  SEARCH_FILTER_TAGS,
-  SEARCH_MOCK_RESULTS,
-  SEARCH_PAGE_SIZE,
-} from "@/lib/constants";
-import type { SearchFilters, SearchResponse, SearchSortBy } from "@/lib/types";
+import api from "@/lib/api";
+import type {
+  SearchFilters,
+  SearchResponse,
+  SearchResult,
+  SearchSortBy,
+} from "@/lib/types";
+
+interface SearchApiResult {
+  id: number;
+  type: "document" | "meeting";
+  title: string;
+  snippet: string;
+  meetingDate: string;
+  source: string;
+  tags: string[];
+  fileType: string | null;
+  meetingId: number;
+}
+
+interface SearchApiResponse {
+  results: SearchApiResult[];
+  totalCount: number;
+  page: number;
+  pageSize: number;
+}
 
 interface SearchParams {
   query: string;
@@ -16,71 +33,42 @@ interface SearchParams {
   sortBy: SearchSortBy;
 }
 
-export async function getFilterOptions(): Promise<{
-  tags: string[];
-  departments: string[];
-}> {
-  // Replace with: return api.get('/search/filter-options').then(r => r.data)
-  return { tags: SEARCH_FILTER_TAGS, departments: SEARCH_FILTER_DEPARTMENTS };
+export async function getFilterOptions(): Promise<{ tags: string[] }> {
+  const { data } = await api.get<{ tags: string[] }>(
+    "/api/search/filter-options"
+  );
+  return data;
 }
 
 export async function searchRecords(
   params: SearchParams
 ): Promise<SearchResponse> {
-  // Replace with: return api.post('/search', params).then(r => r.data)
-  await new Promise((r) => setTimeout(r, 350));
+  const { data } = await api.post<SearchApiResponse>("/api/search", {
+    searchTerm: params.query,
+    page: params.page,
+    pageSize: params.pageSize,
+    sortBy: params.sortBy,
+    includeMeetings: params.filters.searchIn.meetings,
+    includeDocuments: params.filters.searchIn.documents,
+    searchTitles: params.filters.searchIn.titles,
+    searchContent: params.filters.searchIn.content,
+    dateFrom: params.filters.dateFrom || null,
+    dateTo: params.filters.dateTo || null,
+    tags: params.filters.activeTags,
+  });
 
-  const { query, filters, page, pageSize = SEARCH_PAGE_SIZE, sortBy } = params;
+  const results: SearchResult[] = data.results.map((result) => ({
+    id: String(result.id),
+    type: result.type,
+    title: result.title,
+    snippet: result.snippet,
+    date: result.meetingDate,
+    source: result.source,
+    tags: result.tags,
+    fileType:
+      (result.fileType?.toUpperCase() as SearchResult["fileType"]) ?? undefined,
+    meetingId: String(result.meetingId),
+  }));
 
-  let results = [...SEARCH_MOCK_RESULTS];
-
-  if (query.trim()) {
-    const q = query.toLowerCase();
-    results = results.filter((r) => {
-      const inTitle =
-        filters.searchIn.titles && r.title.toLowerCase().includes(q);
-      const inContent =
-        filters.searchIn.content && r.snippet.toLowerCase().includes(q);
-      const inMeetings =
-        filters.searchIn.meetingMinutes &&
-        r.type === "meeting" &&
-        r.snippet.toLowerCase().includes(q);
-      return inTitle || inContent || inMeetings;
-    });
-  }
-
-  if (filters.activeTags.length > 0) {
-    results = results.filter((r) =>
-      r.tags.some((t) => filters.activeTags.includes(t))
-    );
-  }
-
-  if (filters.department && filters.department !== "All Departments") {
-    results = results.filter((r) => r.source === filters.department);
-  }
-
-  if (filters.dateFrom) {
-    const from = new Date(filters.dateFrom).getTime();
-    results = results.filter((r) => new Date(r.date).getTime() >= from);
-  }
-
-  if (filters.dateTo) {
-    const to = new Date(filters.dateTo).getTime();
-    results = results.filter((r) => new Date(r.date).getTime() <= to);
-  }
-
-  if (sortBy === "date_desc") {
-    results.sort(
-      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-    );
-  } else if (sortBy === "date_asc") {
-    results.sort(
-      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-    );
-  }
-
-  const total = results.length;
-  const paginated = results.slice((page - 1) * pageSize, page * pageSize);
-
-  return { results: paginated, total };
+  return { results, total: data.totalCount };
 }

@@ -4,7 +4,6 @@ import { msalInstance, apiTokenRequest } from "@/lib/msalConfig";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL ?? "http://localhost:5150",
-  headers: { "Content-Type": "application/json" },
 });
 
 /**
@@ -31,10 +30,13 @@ api.interceptors.request.use(async (config) => {
   // happens to list first, and the same person signing in with a work account
   // versus a personal one has two different object ids — picking the wrong one
   // mints a token for the wrong identity, and therefore the wrong organisation.
-  const account = msalInstance.getActiveAccount() ?? msalInstance.getAllAccounts()[0];
+  const account =
+    msalInstance.getActiveAccount() ?? msalInstance.getAllAccounts()[0];
 
   if (!account) {
-    throw new TokenAcquisitionError("No signed-in account; cannot authorise request.");
+    throw new TokenAcquisitionError(
+      "No signed-in account; cannot authorise request."
+    );
   }
 
   try {
@@ -58,7 +60,7 @@ api.interceptors.request.use(async (config) => {
       err instanceof Error
         ? `Could not acquire an access token: ${err.message}`
         : "Could not acquire an access token.",
-      err,
+      err
     );
   }
 });
