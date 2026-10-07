@@ -1,14 +1,16 @@
 import { authService } from "@/services/auth.service";
 import { createDeadlineRetry, retryDelay } from "@/lib/retry";
 import { useAuthStore } from "@/store/authStore";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import { useMemo } from "react";
 import { toast } from "sonner";
+import { useSearchStore } from "@/store/searchStore";
 
 export function useSyncUser() {
   const navigate = useNavigate();
   const { setAuth } = useAuthStore();
+  const queryClient = useQueryClient();
 
   // One predicate instance per hook instance. It holds the deadline timer, so it
   // must not be shared with any other request. If React ever discards the memo
@@ -42,6 +44,8 @@ export function useSyncUser() {
         organizationName: data.organizationName,
         organizationUrl: data.organizationUrl,
       });
+      queryClient.clear();
+      useSearchStore.getState().clearSearch();
 
       navigate(data.status === "new" ? "/onboarding" : "/dashboard", {
         replace: true,

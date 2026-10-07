@@ -5,12 +5,12 @@ const DEFAULT_FILTERS: SearchFilters = {
   searchIn: {
     titles: true,
     content: true,
-    meetingMinutes: false,
+    documents: true,
+    meetings: true,
   },
   dateFrom: "",
   dateTo: "",
   activeTags: [],
-  department: "All Departments",
 };
 
 interface SearchStore {
@@ -28,13 +28,13 @@ interface SearchStore {
   setDateFrom: (date: string) => void;
   setDateTo: (date: string) => void;
   toggleTag: (tag: string) => void;
-  setDepartment: (dept: string) => void;
   setSortBy: (sortBy: SearchSortBy) => void;
   setPage: (page: number) => void;
   setResults: (results: SearchResult[], total: number) => void;
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
   resetFilters: () => void;
+  clearSearch: () => void;
 }
 
 export const useSearchStore = create<SearchStore>((set) => ({
@@ -50,13 +50,16 @@ export const useSearchStore = create<SearchStore>((set) => ({
   setQuery: (query) => set({ query, page: 1 }),
 
   toggleSearchIn: (key) =>
-    set((s) => ({
-      filters: {
-        ...s.filters,
-        searchIn: { ...s.filters.searchIn, [key]: !s.filters.searchIn[key] },
-      },
-      page: 1,
-    })),
+    set((s) => {
+      const next = { ...s.filters.searchIn, [key]: !s.filters.searchIn[key] };
+      if (
+        (!next.titles && !next.content) ||
+        (!next.documents && !next.meetings)
+      ) {
+        return s;
+      }
+      return { filters: { ...s.filters, searchIn: next }, page: 1 };
+    }),
 
   setDateFrom: (dateFrom) =>
     set((s) => ({ filters: { ...s.filters, dateFrom }, page: 1 })),
@@ -70,13 +73,12 @@ export const useSearchStore = create<SearchStore>((set) => ({
         ...s.filters,
         activeTags: s.filters.activeTags.includes(tag)
           ? s.filters.activeTags.filter((t) => t !== tag)
-          : [...s.filters.activeTags, tag],
+          : s.filters.activeTags.length < 20
+            ? [...s.filters.activeTags, tag]
+            : s.filters.activeTags,
       },
       page: 1,
     })),
-
-  setDepartment: (department) =>
-    set((s) => ({ filters: { ...s.filters, department }, page: 1 })),
 
   setSortBy: (sortBy) => set({ sortBy, page: 1 }),
 
@@ -95,5 +97,20 @@ export const useSearchStore = create<SearchStore>((set) => ({
         searchIn: { ...DEFAULT_FILTERS.searchIn },
       },
       page: 1,
+    }),
+
+  clearSearch: () =>
+    set({
+      query: "",
+      filters: {
+        ...DEFAULT_FILTERS,
+        searchIn: { ...DEFAULT_FILTERS.searchIn },
+      },
+      sortBy: "relevance",
+      page: 1,
+      results: [],
+      total: 0,
+      isLoading: false,
+      error: null,
     }),
 }));

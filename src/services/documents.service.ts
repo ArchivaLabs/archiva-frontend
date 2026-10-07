@@ -1,7 +1,20 @@
 import api from "@/lib/api";
-import type { DocumentDto, UploadDocumentPayload } from "@/lib/types";
+import type {
+  DocumentDetailDto,
+  DocumentDto,
+  UploadDocumentPayload,
+} from "@/lib/types";
 
 export const documentService = {
+  async getDocument(id: number): Promise<DocumentDetailDto> {
+    const { data } = await api.get<DocumentDetailDto>(`/api/documents/${id}`);
+    return data;
+  },
+
+  async retryAnalysis(id: number): Promise<void> {
+    await api.post(`/api/documents/${id}/analysis/retry`, {});
+  },
+
   async uploadDocument(payload: UploadDocumentPayload): Promise<DocumentDto> {
     const formData = new FormData();
     formData.append("file", payload.file);
@@ -12,12 +25,7 @@ export const documentService = {
 
     const { data } = await api.post<DocumentDto>(
       `/api/meetings/${payload.meetingId}/documents`,
-      formData,
-      {
-        headers: {
-          "Content-Type": undefined,
-        },
-      }
+      formData
     );
     return data;
   },

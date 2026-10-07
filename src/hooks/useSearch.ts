@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { SEARCH_PAGE_SIZE } from "@/lib/constants";
 import { searchRecords } from "@/services/search";
 import { useSearchStore } from "@/store/searchStore";
+import { useAuthStore } from "@/store/authStore";
 import { useDebounce } from "./useDebounce";
 
 export function useSearch() {
@@ -10,6 +11,14 @@ export function useSearch() {
 
   useEffect(() => {
     let cancelled = false;
+    const identity = useAuthStore.getState();
+    const isCurrentIdentity = () => {
+      const current = useAuthStore.getState();
+      return (
+        current.userId === identity.userId &&
+        current.organizationId === identity.organizationId
+      );
+    };
 
     const run = async () => {
       store.setLoading(true);
@@ -22,11 +31,15 @@ export function useSearch() {
           pageSize: SEARCH_PAGE_SIZE,
           sortBy: store.sortBy,
         });
-        if (!cancelled) store.setResults(res.results, res.total);
+        if (!cancelled && isCurrentIdentity()) {
+          store.setResults(res.results, res.total);
+        }
       } catch {
-        if (!cancelled) store.setError("Search failed. Please try again.");
+        if (!cancelled && isCurrentIdentity()) {
+          store.setError("Search failed. Please try again.");
+        }
       } finally {
-        if (!cancelled) store.setLoading(false);
+        if (!cancelled && isCurrentIdentity()) store.setLoading(false);
       }
     };
 

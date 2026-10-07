@@ -31,7 +31,7 @@ export default function SearchEmptyState({
         </h4>
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li className="flex gap-2">
-            <span>&bull;</span> Use specific department names
+            <span>&bull;</span> Search for topics from a meeting agenda
           </li>
           <li className="flex gap-2">
             <span>&bull;</span> Check for typos in document titles
