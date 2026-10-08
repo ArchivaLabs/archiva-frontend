@@ -4,13 +4,15 @@ import ViewerSkeleton from "./ViewerSkeleton";
 import UnsupportedViewer from "./UnsupportedViewer";
 
 export default function TextViewer({
+  documentId,
   blobUrl,
   fileName,
 }: {
+  documentId: number;
   blobUrl: string;
   fileName: string;
 }) {
-  const { data, isLoading, isError } = useDocumentBlob(blobUrl);
+  const { data, isLoading, isError } = useDocumentBlob(documentId);
 
   const text = useMemo(() => {
     if (!data) return null;

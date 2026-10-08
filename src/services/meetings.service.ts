@@ -24,8 +24,6 @@ export const meetingsService = {
       },
     });
 
-    console.log(data);
-
     return data;
   },
 
@@ -41,7 +39,6 @@ export const meetingsService = {
       "/api/meetings",
       payload
     );
-    console.log(data);
     return data;
   },
 
@@ -53,8 +50,6 @@ export const meetingsService = {
       `/api/meetings/${id}`,
       payload
     );
-
-    console.log(data);
 
     return data;
   },

@@ -6,8 +6,21 @@ import type {
 } from "@/lib/types";
 
 export const documentService = {
-  async getDocument(id: number): Promise<DocumentDetailDto> {
-    const { data } = await api.get<DocumentDetailDto>(`/api/documents/${id}`);
+  async getDocument(
+    id: number,
+    signal?: AbortSignal
+  ): Promise<DocumentDetailDto> {
+    const { data } = await api.get<DocumentDetailDto>(`/api/documents/${id}`, {
+      signal,
+    });
+    return data;
+  },
+
+  async downloadContent(id: number, signal: AbortSignal): Promise<ArrayBuffer> {
+    const { data } = await api.get<ArrayBuffer>(`/api/documents/${id}/content`, {
+      responseType: "arraybuffer",
+      signal,
+    });
     return data;
   },
 

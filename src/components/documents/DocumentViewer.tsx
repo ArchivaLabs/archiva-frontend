@@ -10,13 +10,37 @@ export default function DocumentViewer({ doc }: { doc: DocumentDto }) {
 
   switch (fileType) {
     case "PDF":
-      return <PdfViewer blobUrl={doc.blobUrl} fileName={doc.fileName} />;
+      return (
+        <PdfViewer
+          documentId={doc.id}
+          blobUrl={doc.blobUrl}
+          fileName={doc.fileName}
+        />
+      );
     case "DOCX":
-      return <DocxViewer blobUrl={doc.blobUrl} fileName={doc.fileName} />;
+      return (
+        <DocxViewer
+          documentId={doc.id}
+          blobUrl={doc.blobUrl}
+          fileName={doc.fileName}
+        />
+      );
     case "XLSX":
-      return <XlsxViewer blobUrl={doc.blobUrl} fileName={doc.fileName} />;
+      return (
+        <XlsxViewer
+          documentId={doc.id}
+          blobUrl={doc.blobUrl}
+          fileName={doc.fileName}
+        />
+      );
     case "TXT":
-      return <TextViewer blobUrl={doc.blobUrl} fileName={doc.fileName} />;
+      return (
+        <TextViewer
+          documentId={doc.id}
+          blobUrl={doc.blobUrl}
+          fileName={doc.fileName}
+        />
+      );
     default:
       return (
         <UnsupportedViewer

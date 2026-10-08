@@ -15,13 +15,15 @@ const MAX_SCALE = 2.5;
 const SCALE_STEP = 0.25;
 
 export default function PdfViewer({
+  documentId,
   blobUrl,
   fileName,
 }: {
+  documentId: number;
   blobUrl: string;
   fileName: string;
 }) {
-  const { data, isLoading, isError } = useDocumentBlob(blobUrl);
+  const { data, isLoading, isError } = useDocumentBlob(documentId);
   const [numPages, setNumPages] = useState<number | null>(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [scale, setScale] = useState(1);

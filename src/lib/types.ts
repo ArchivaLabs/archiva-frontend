@@ -130,6 +130,7 @@ export interface GetMeetingsResponse {
 }
 
 export interface CreateMeetingPayload {
+  utcOffsetMinutes: number;
   title: string;
   description: string | null;
   meetingDate: string; // YYYY-MM-DD

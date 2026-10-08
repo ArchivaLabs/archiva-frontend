@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import {
   AlignLeft,
   CalendarDays,
@@ -20,15 +20,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useCreateMeeting } from "@/hooks/mutations/useCreateMeeting";
-
-const EMPTY_FORM = {
-  title: "",
-  date: "",
-  time: "",
-  location: "",
-  description: "",
-};
+import { useCreateMeetingForm } from "@/hooks/useCreateMeetingForm";
+import { localDate } from "@/lib/meetingValidation";
 
 const fieldClasses =
   "h-11 w-full rounded-lg border border-border bg-surface-container-low pr-3 pl-9 text-sm text-foreground placeholder:text-muted-foreground focus:ring-1 focus:ring-ring focus:outline-none";
@@ -39,65 +32,25 @@ export default function CreateMeetingModal({
   /** Custom element that opens the modal. Defaults to a standard "New Meeting" button. */
   trigger?: ReactNode;
 }) {
-  const [open, setOpen] = useState(false);
-  const [form, setForm] = useState(EMPTY_FORM);
-  const [tags, setTags] = useState<string[]>([]);
-  const [tagInput, setTagInput] = useState("");
-  const [touched, setTouched] = useState(false);
-  const createMeeting = useCreateMeeting(() => handleOpenChange(false));
-
-  const isValid = form.title.trim() && form.date && form.time;
-
-  function resetForm() {
-    setForm(EMPTY_FORM);
-    setTags([]);
-    setTagInput("");
-    setTouched(false);
-  }
-
-  function handleOpenChange(next: boolean) {
-    setOpen(next);
-    if (!next) resetForm();
-  }
-
-  function addTag() {
-    const value = tagInput.trim();
-    if (!value || tags.includes(value)) {
-      setTagInput("");
-      return;
-    }
-    setTags((prev) => [...prev, value]);
-    setTagInput("");
-  }
-
-  function handleTagKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
-    if (e.key === "Enter" || e.key === ",") {
-      e.preventDefault();
-      addTag();
-    } else if (e.key === "Backspace" && !tagInput && tags.length) {
-      setTags((prev) => prev.slice(0, -1));
-    }
-  }
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setTouched(true);
-    if (!isValid) return;
-
-    createMeeting.mutate({
-      title: form.title.trim(),
-      description: form.description.trim() || null,
-      meetingDate: form.date,
-      meetingTime: `${form.time}:00`,
-      location: form.location,
-      tags,
-    });
-
-    console.log("Form submitted");
-  }
+  const {
+    open,
+    form,
+    setForm,
+    tags,
+    setTags,
+    tagInput,
+    setTagInput,
+    touched,
+    tagError,
+    errors,
+    createMeeting,
+    handleOpenChange,
+    handleTagKeyDown,
+    handleSubmit,
+  } = useCreateMeetingForm();
 
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
+    <Dialog open={open} onOpenChange={(next) => handleOpenChange(next)}>
       <DialogTrigger asChild>
         {trigger ?? (
           <Button className="gap-2 px-5">
@@ -127,6 +80,7 @@ export default function CreateMeetingModal({
                 type="text"
                 placeholder="Senate Committee General Session"
                 value={form.title}
+                maxLength={200}
                 onChange={(e) =>
                   setForm((f) => ({ ...f, title: e.target.value }))
                 }
@@ -134,10 +88,8 @@ export default function CreateMeetingModal({
                 className={fieldClasses}
               />
             </div>
-            {touched && !form.title.trim() && (
-              <p className="mt-1.5 text-xs text-destructive">
-                Title is required.
-              </p>
+            {touched && errors.title && (
+              <p className="mt-1.5 text-xs text-destructive">{errors.title}</p>
             )}
           </div>
 
@@ -152,16 +104,15 @@ export default function CreateMeetingModal({
                 <input
                   type="date"
                   value={form.date}
+                  min={localDate()}
                   onChange={(e) =>
                     setForm((f) => ({ ...f, date: e.target.value }))
                   }
                   className={fieldClasses}
                 />
               </div>
-              {touched && !form.date && (
-                <p className="mt-1.5 text-xs text-destructive">
-                  Date is required.
-                </p>
+              {touched && errors.date && (
+                <p className="mt-1.5 text-xs text-destructive">{errors.date}</p>
               )}
             </div>
 
@@ -180,10 +131,8 @@ export default function CreateMeetingModal({
                   className={fieldClasses}
                 />
               </div>
-              {touched && !form.time && (
-                <p className="mt-1.5 text-xs text-destructive">
-                  Time is required.
-                </p>
+              {touched && errors.time && (
+                <p className="mt-1.5 text-xs text-destructive">{errors.time}</p>
               )}
             </div>
           </div>
@@ -202,12 +151,18 @@ export default function CreateMeetingModal({
                 type="text"
                 placeholder="Senate Hall (Room 402)"
                 value={form.location}
+                maxLength={500}
                 onChange={(e) =>
                   setForm((f) => ({ ...f, location: e.target.value }))
                 }
                 className={fieldClasses}
               />
             </div>
+            {touched && errors.location && (
+              <p className="mt-1.5 text-xs text-destructive">
+                {errors.location}
+              </p>
+            )}
           </div>
 
           {/* Tags */}
@@ -224,12 +179,17 @@ export default function CreateMeetingModal({
                 type="text"
                 placeholder="Type a tag and press Enter"
                 value={tagInput}
+                maxLength={50}
                 onChange={(e) => setTagInput(e.target.value)}
                 onKeyDown={handleTagKeyDown}
-                onBlur={addTag}
                 className={fieldClasses}
               />
             </div>
+            {(tagError || (touched && errors.tags)) && (
+              <p className="mt-1.5 text-xs text-destructive">
+                {tagError || errors.tags}
+              </p>
+            )}
             {tags.length > 0 && (
               <div className="mt-2.5 flex flex-wrap gap-2">
                 {tags.map((tag) => (
@@ -267,23 +227,37 @@ export default function CreateMeetingModal({
                 rows={3}
                 placeholder="What is this meeting about?"
                 value={form.description}
+                maxLength={1000}
                 onChange={(e) =>
                   setForm((f) => ({ ...f, description: e.target.value }))
                 }
                 className="w-full resize-none rounded-lg border border-border bg-surface-container-low py-2.5 pr-3 pl-9 text-sm text-foreground placeholder:text-muted-foreground focus:ring-1 focus:ring-ring focus:outline-none"
               />
             </div>
+            {touched && errors.description && (
+              <p className="mt-1.5 text-xs text-destructive">
+                {errors.description}
+              </p>
+            )}
           </div>
 
           <DialogFooter className="-mx-7 mt-2 -mb-6">
             <DialogClose asChild>
-              <Button type="button" variant="outline">
+              <Button
+                type="button"
+                variant="outline"
+                disabled={createMeeting.isPending}
+              >
                 Cancel
               </Button>
             </DialogClose>
-            <Button type="submit" className="gap-2 px-5">
+            <Button
+              type="submit"
+              className="gap-2 px-5"
+              disabled={createMeeting.isPending}
+            >
               <Plus className="size-4" />
-              Create meeting
+              {createMeeting.isPending ? "Creating…" : "Create meeting"}
             </Button>
           </DialogFooter>
         </form>

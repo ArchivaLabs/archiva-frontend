@@ -6,13 +6,15 @@ import UnsupportedViewer from "./UnsupportedViewer";
 import { cn } from "@/lib/utils";
 
 export default function XlsxViewer({
+  documentId,
   blobUrl,
   fileName,
 }: {
+  documentId: number;
   blobUrl: string;
   fileName: string;
 }) {
-  const { data, isLoading, isError } = useDocumentBlob(blobUrl);
+  const { data, isLoading, isError } = useDocumentBlob(documentId);
   const [activeSheet, setActiveSheet] = useState(0);
 
   const workbook = useMemo(() => {

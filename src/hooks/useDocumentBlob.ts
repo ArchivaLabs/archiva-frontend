@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { documentService } from "@/services/documents.service";
 
 interface UseDocumentBlobResult {
   data: ArrayBuffer | null;
@@ -6,7 +7,7 @@ interface UseDocumentBlobResult {
   isError: boolean;
 }
 
-export function useDocumentBlob(url: string): UseDocumentBlobResult {
+export function useDocumentBlob(documentId: number): UseDocumentBlobResult {
   const [data, setData] = useState<ArrayBuffer | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -20,9 +21,10 @@ export function useDocumentBlob(url: string): UseDocumentBlobResult {
       setIsError(false);
 
       try {
-        const res = await fetch(url, { signal: controller.signal });
-        if (!res.ok) throw new Error(`Failed to fetch document: ${res.status}`);
-        const buffer = await res.arrayBuffer();
+        const buffer = await documentService.downloadContent(
+          documentId,
+          controller.signal
+        );
         setData(buffer);
         setIsLoading(false);
       } catch (err) {
@@ -36,7 +38,7 @@ export function useDocumentBlob(url: string): UseDocumentBlobResult {
     load();
 
     return () => controller.abort();
-  }, [url]);
+  }, [documentId]);
 
   return { data, isLoading, isError };
 }
