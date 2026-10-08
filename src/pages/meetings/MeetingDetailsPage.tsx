@@ -1,4 +1,11 @@
-import { Calendar, Clock, MapPin, ChevronRight, Loader2 } from "lucide-react";
+import {
+  ArrowLeft,
+  Calendar,
+  Clock,
+  MapPin,
+  ChevronRight,
+  Loader2,
+} from "lucide-react";
 import { Link, useNavigate, useParams } from "react-router";
 import TagBadge from "@/components/shared/TagBadge";
 import MeetingDocumentsTable from "@/components/meetings/MeetingDocumentsTable";
@@ -44,6 +51,14 @@ export default function MeetingDetailsPage() {
 
   return (
     <section className="mx-auto flex w-full max-w-300 flex-col gap-6 p-margin-mobile sm:p-6">
+      <Link
+        to="/meetings"
+        className="inline-flex w-fit items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+      >
+        <ArrowLeft aria-hidden="true" className="size-4" />
+        Back to meetings
+      </Link>
+
       {/* Breadcrumb */}
       <nav className="flex items-center gap-1.5 text-xs text-muted-foreground">
         <Link to="/meetings" className="transition-colors hover:text-primary">
